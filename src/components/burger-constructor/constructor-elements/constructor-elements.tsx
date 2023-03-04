@@ -4,8 +4,6 @@ import { data } from "../../../utils/data";
 import styles from "./constructor-elements.module.sass";
 
 const ConstructorElements = () => {
-  console.log(data);
-
   return (
     <div className={`ml-4 mr-4 ${styles.constructorElements}`}>
       <ConstructorElement
@@ -20,6 +18,7 @@ const ConstructorElements = () => {
           return (
             item.type !== "bun" && (
               <ConstructorElement
+                key={item._id}
                 text={item.name}
                 price={item.price}
                 thumbnail={item.image}
@@ -28,7 +27,6 @@ const ConstructorElements = () => {
           );
         })}
       </div>
-
       <ConstructorElement
         type="bottom"
         isLocked={true}

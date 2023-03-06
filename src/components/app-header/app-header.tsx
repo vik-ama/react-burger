@@ -12,42 +12,27 @@ const AppHeader = () => {
     <div className={`${styles.appHeader}`}>
       <div className={`pt-4 pb-4 ${styles.appHeader__container}`}>
         <div className={`${styles.appHeader__navs}`}>
-          <Button
-            htmlType="button"
-            type="secondary"
-            size="medium"
-            extraClass="pr-5 pl-5"
-          >
+          <a href="#" className={`${styles.aButton}`}>
             <BurgerIcon type="primary" />
             <span className="text text_type_main-default">Констркутор</span>
-          </Button>
-          <Button
-            htmlType="button"
-            type="secondary"
-            size="medium"
-            extraClass="pr-5 pl-5"
-          >
+          </a>
+          <a href="#" className={`${styles.aButton}`}>
             <ListIcon type="primary" />
             <span className="text text_type_main-default text_color_inactive">
               Лента заказов
             </span>
-          </Button>
+          </a>
         </div>
         <div className={`${styles.appHeader__logo}`}>
           <Logo />
         </div>
         <div className={`${styles.appHeader__lk}`}>
-          <Button
-            htmlType="button"
-            type="secondary"
-            size="medium"
-            extraClass="pr-5 pl-5"
-          >
+          <a href="#" className={`${styles.aButton}`}>
             <ProfileIcon type="primary" />
             <span className="text text_type_main-default text_color_inactive">
               Личный кабнет
             </span>
-          </Button>
+          </a>
         </div>
       </div>
     </div>

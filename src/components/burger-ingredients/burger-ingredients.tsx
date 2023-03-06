@@ -2,10 +2,10 @@ import React from "react";
 import styles from "./burger-ingredients.module.sass";
 import IngredientsTabs from "./ingredients-tabs/ingredients-tabs";
 import IngredientsGroup from "./ingredients-group/ingredients-group";
-import { data } from "../../utils/data";
+import { ingredients } from "../../utils/data";
 
 const BurgerIngredients = () => {
-  //console.log(data);
+  //console.log(ingredientPropTypes);
 
   return (
     <section className={`mt-10 ${styles.burgerIngredients}`}>
@@ -21,17 +21,17 @@ const BurgerIngredients = () => {
         <IngredientsGroup
           type={`bun`}
           title={`Булки`}
-          data={data.filter((item: any) => item.type === "bun")}
+          data={ingredients.filter((item: any) => item.type === "bun")}
         />
         <IngredientsGroup
           type={`sauce`}
           title={`Соусы`}
-          data={data.filter((item: any) => item.type === "sauce")}
+          data={ingredients.filter((item: any) => item.type === "sauce")}
         />
         <IngredientsGroup
           type={`main`}
           title={`Начинки`}
-          data={data.filter((item: any) => item.type === "main")}
+          data={ingredients.filter((item: any) => item.type === "main")}
         />
       </div>
     </section>

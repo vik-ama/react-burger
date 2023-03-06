@@ -4,9 +4,11 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ingredientPropTypes } from "../../../utils/types";
+import PropTypes from "prop-types";
 const IngredientsItem = (props: any) => {
   const { data } = props;
-  console.log(data);
+  //console.log(data);
   return (
     <div className={`${styles.ingredientsItem}`}>
       <div className={`ml-4 mr-4 ${styles.ingredientsItem__image}`}>
@@ -22,6 +24,10 @@ const IngredientsItem = (props: any) => {
       </div>
     </div>
   );
+};
+
+IngredientsItem.propTypes = {
+  data: ingredientPropTypes,
 };
 
 export default IngredientsItem;

@@ -4,9 +4,9 @@ import styles from "./ingredients-tabs.module.sass";
 const IngredientsTabs = () => {
   const [current, setCurrent] = useState("bun");
 
-  const scrollTo = (e: any) => {
+  const scrollTo = (e) => {
     setCurrent(e);
-    const el: any = document.querySelector("#" + e);
+    const el = document.querySelector("#" + e);
     el.scrollIntoView({ behavior: "smooth" });
   };
 

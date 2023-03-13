@@ -1,0 +1,57 @@
+.app
+    &__header
+        background: #1C1C21
+        box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04)
+        margin-left: 40px
+        margin-right: 40px
+        margin-top: 40px
+.appHeader
+    & .aButton
+        display: flex
+        flex-direction: row
+        justify-content: center
+        align-items: center
+        gap: 8px
+        text-decoration: none
+        color: #ffffff
+        padding: 20px
+        & svg
+            width: 24px
+            height: auto
+            box-sizing: border-box
+            display: block
+    &__container
+        max-width: 1240px
+        margin-left: auto
+        margin-right: auto
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-items: center
+    &__navs
+        flex-grow: 1
+        display: flex
+        flex-direction: row
+        justify-content: flex-start
+        align-items: center
+        width: 50%
+        gap: 8px
+        & .aButton
+            color: #ffffff
+            &:first-child
+                margin-left: -20px
+    &__logo
+        & svg
+            height: 40px
+            width: auto
+            box-sizing: border-box
+            display: block
+    &__lk
+        flex-grow: 1
+        display: flex
+        flex-direction: row
+        justify-content: flex-end
+        align-items: center
+        width: 50%
+        & .aButton
+            margin-right: -20px

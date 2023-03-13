@@ -4,6 +4,7 @@ import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import Preloader from "../preloader/preloader";
+import { getIngredients } from "../../utils/api";
 
 function App() {
   const [loader, setLoader] = useState(false);
@@ -12,11 +13,12 @@ function App() {
 
   useEffect(() => {
     setLoader(true);
-    fetch("https://norma.nomoreparties.space/api/ingredients")
-      .then((response) => response.json())
+    getIngredients()
       .then((response) => {
-        setIngredients(response.data);
-        setLoader(false);
+        if (response.success) {
+          setIngredients(response.data);
+          setLoader(false);
+        }
       })
       .catch(() => {
         setLoader(true);
@@ -24,16 +26,12 @@ function App() {
       });
   }, []);
 
-  //console.log(ingredients);
-
   return (
     <>
       {loader && <Preloader />}
       {!loader && (
         <>
-          <header className={styles.app__header}>
-            <AppHeader />
-          </header>
+          <AppHeader />
           <main className={styles.app__main}>
             <BurgerIngredients
               ingredients={ingredients}

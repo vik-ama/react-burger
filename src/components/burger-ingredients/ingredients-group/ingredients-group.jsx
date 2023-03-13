@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./ingredients-group.module.sass";
 import IngredientsItem from "../ingredients-item/ingredients-item";
 import PropTypes from "prop-types";
+import { ingredientPropTypes } from "../../../utils/types";
 
 const IngredientsGroup = (props) => {
   const { type, title, ingredients, openModal, getIngredientInfo } = props;
@@ -33,8 +34,9 @@ const IngredientsGroup = (props) => {
 IngredientsGroup.propTypes = {
   type: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  //ingredients: ingredientPropTypes.isRequired,
-  ingredients: PropTypes.array.isRequired,
+  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
+  openModal: PropTypes.func.isRequired,
+  getIngredientInfo: PropTypes.func.isRequired,
 };
 
 export default IngredientsGroup;

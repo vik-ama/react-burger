@@ -8,7 +8,7 @@ import { ingredientPropTypes } from "../../../utils/types";
 import PropTypes from "prop-types";
 
 const ConstructorElements = (props) => {
-  const { ingredients, loader, error } = props;
+  const { ingredients } = props;
 
   //console.log(props);
 
@@ -65,7 +65,7 @@ const ConstructorElements = (props) => {
 };
 
 ConstructorElements.propTypes = {
-  ingredients: PropTypes.array.isRequired,
+  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
 };
 
 export default ConstructorElements;

@@ -4,20 +4,26 @@ import styles from "./modal.module.sass";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
+import { useDispatch } from "react-redux";
+import { closeModal } from "../../services/actions/modal-actions";
+import { removeBurgerIngredientDetails } from "../../services/actions/burger-ingredient-details-actions";
 
 const rootModal = document.querySelector("#root-modal");
 
 const Modal = (props) => {
-  const { title, closeModal, children } = props;
+  const { title, children } = props;
+  const dispatch = useDispatch();
 
   const handleCloseModal = () => {
-    closeModal(false);
+    dispatch(closeModal());
+    dispatch(removeBurgerIngredientDetails());
   };
 
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.keyCode === 27) {
-        closeModal(false);
+        dispatch(closeModal());
+        dispatch(removeBurgerIngredientDetails());
       }
     };
     document.addEventListener("keydown", handleEscape);
@@ -25,7 +31,7 @@ const Modal = (props) => {
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [closeModal]);
+  }, [closeModal, dispatch]);
 
   return createPortal(
     <>
@@ -42,7 +48,7 @@ const Modal = (props) => {
           </div>
         </div>
       </div>
-      <ModalOverlay closeModal={closeModal} />
+      <ModalOverlay />
     </>,
     rootModal
   );
@@ -50,7 +56,6 @@ const Modal = (props) => {
 
 Modal.propTypes = {
   title: PropTypes.string,
-  closeModal: PropTypes.func.isRequired,
   children: PropTypes.object.isRequired,
 };
 

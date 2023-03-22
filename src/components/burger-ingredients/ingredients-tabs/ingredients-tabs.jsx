@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredients-tabs.module.sass";
-const IngredientsTabs = () => {
-  const [current, setCurrent] = useState("bun");
+import PropTypes from "prop-types";
+const IngredientsTabs = (props) => {
+  const { current, setCurrent } = props;
 
   const scrollTo = (e) => {
     setCurrent(e);
@@ -23,6 +24,11 @@ const IngredientsTabs = () => {
       </Tab>
     </div>
   );
+};
+
+IngredientsTabs.propTypes = {
+  current: PropTypes.string.isRequired,
+  setCurrent: PropTypes.func.isRequired,
 };
 
 export default IngredientsTabs;

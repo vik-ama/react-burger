@@ -5,6 +5,45 @@
     justify-content: flex-start
     align-items: flex-start
     gap: 16px
+
+
+    &__default
+        width: 100%
+        height: 100%
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        &_icon
+            & img
+                width: 100px
+                height: auto
+                -webkit-box-sizing: border-box
+                -moz-box-sizing: border-box
+                box-sizing: border-box
+        &_title
+            margin-top: 16px
+            font-size: 16px
+            line-height: 1.4
+            text-align: center
+    &__defaultBun
+        padding: 16px 24px
+        display: inline-block
+        border-radius: var(--common-border-radius-s)
+        background: var(--background-element)
+        max-width: 536px
+        width: 100%
+        min-height: 80px
+        font-size: 16px
+        line-height: 24px
+        color: #F2F2F3
+        flex-grow: 1
+        box-sizing: border-box
+        &_top
+            border-radius: var(--top-constructor-item-border-radius)
+        &_bottom
+            border-radius: var(--bottom-constructor-item-border-radius)
+
     &__items
         position: relative
         display: flex
@@ -15,8 +54,10 @@
         overflow-x: hidden
         overflow-y: scroll
         max-height: calc(100vh - 642px)
-        height: 100%
+        min-height: 50px
+        height: auto
         padding-right: 4px
+        width: 100%
     &__item
         display: flex
         flex-direction: row
@@ -27,9 +68,18 @@
         //margin-right: 8px
         &:hover
             cursor: pointer
-    &__buh
+    &__bun
         margin-right: 16px
         margin-left: 26px
+        width: 100%
+        &_bottom
+            & img
+                transform: rotate(180deg)
+    &__hover
+        opacity: 0.5
+        & .constructorElements__bun
+
+
 
 
 

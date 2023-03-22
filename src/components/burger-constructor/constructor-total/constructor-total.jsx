@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./constructor-total.module.sass";
 import {
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import { openModal } from "../../../services/actions/modal-actions";
+import { useDispatch } from "react-redux";
+import { burgerConstructorСheckout } from "../../../services/actions/order-details-actions";
+
 const ConstructorTotal = (props) => {
-  const { orderPrice = 0, openModal } = props;
+  const { orderPrice = 0, orderIngredients } = props;
+  const dispatch = useDispatch();
 
   const handleOpenModal = () => {
-    openModal(true);
+    dispatch(burgerConstructorСheckout(orderIngredients));
+    dispatch(openModal("order"));
   };
 
   return (
@@ -27,7 +33,7 @@ const ConstructorTotal = (props) => {
           htmlType="button"
           type="primary"
           size="large"
-          onClick={handleOpenModal}
+          onClick={() => handleOpenModal()}
         >
           Оформить заказ
         </Button>
@@ -38,7 +44,7 @@ const ConstructorTotal = (props) => {
 
 ConstructorTotal.propTypes = {
   orderPrice: PropTypes.number.isRequired,
-  openModal: PropTypes.func.isRequired,
+  orderIngredients: PropTypes.array.isRequired,
 };
 
 export default ConstructorTotal;

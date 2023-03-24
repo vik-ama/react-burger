@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 const BurgerConstructor = (props) => {
   const { isLoading, hasError } = props;
 
-  const modal = useSelector((state) => state.modal);
   const burgerConstructor = useSelector((state) => state.burgerConstructor);
   const orderDetails = useSelector((state) => state.orderDetails);
 
@@ -35,17 +34,21 @@ const BurgerConstructor = (props) => {
     if (burgerConstructor.bun) {
       orderIngredientsArray.push(burgerConstructor.bun._id);
     }
+
     if (burgerConstructor.ingredients.length !== 0) {
       burgerConstructor.ingredients.forEach((item) => {
         orderIngredientsArray.push(item._id);
       });
+    }
+    if (burgerConstructor.bun) {
+      orderIngredientsArray.push(burgerConstructor.bun._id);
     }
     return orderIngredientsArray;
   }, [burgerConstructor]);
 
   return (
     <section className={`mt-25 ${styles.burgerConstructor}`}>
-      {modal.showOrder && orderDetails.order.success && (
+      {orderDetails.order !== null && orderDetails.order.success && (
         <Modal>
           <ConstructorDetails
             orderNumber={orderDetails.order.order.number}

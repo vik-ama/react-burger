@@ -8,7 +8,6 @@ import { ingredientPropTypes } from "../../../utils/types";
 import { useDrag } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { addBurgerIngredientDetails } from "../../../services/actions/burger-ingredient-details-actions";
-import { openModal } from "../../../services/actions/modal-actions";
 
 const IngredientsItem = (props) => {
   const { ingredient } = props;
@@ -16,7 +15,6 @@ const IngredientsItem = (props) => {
 
   const handleOpenModal = (ingredient) => {
     dispatch(addBurgerIngredientDetails(ingredient));
-    dispatch(openModal("details"));
   };
 
   // считалка ингредиентов

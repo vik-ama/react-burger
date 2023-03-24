@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./burger-ingredients.module.sass";
 import IngredientsTabs from "./ingredients-tabs/ingredients-tabs";
 import IngredientsGroup from "./ingredients-group/ingredients-group";
@@ -9,10 +9,14 @@ import { useInView } from "react-intersection-observer";
 import PropTypes from "prop-types";
 import { ingredientPropTypes } from "../../utils/types";
 
+export const BUN = "bun";
+export const SAUCE = "sauce";
+export const MAIN = "main";
+
 const BurgerIngredients = (props) => {
   const { ingredients, isLoading, hasError } = props;
 
-  const [current, setCurrent] = useState("bun");
+  const [current, setCurrent] = useState(BUN);
 
   // const refBun = useRef("bun");
   // const refSauce = useRef("sauce");
@@ -21,7 +25,6 @@ const BurgerIngredients = (props) => {
   const burgerIngredientDetails = useSelector(
     (state) => state.burgerIngredientDetails
   );
-  const modal = useSelector((state) => state.modal);
 
   const ingredientsSection = useRef();
 
@@ -43,19 +46,31 @@ const BurgerIngredients = (props) => {
 
   useEffect(() => {
     if (inViewBun) {
-      setCurrent("bun");
+      setCurrent(BUN);
     }
     if (inViewSauce) {
-      setCurrent("sauce");
+      setCurrent(SAUCE);
     }
     if (inViewMain) {
-      setCurrent("main");
+      setCurrent(MAIN);
     }
   }, [inViewBun, inViewSauce, inViewMain]);
 
+  const ingredientsBun = useMemo(() => {
+    return ingredients.filter((item) => item.type === BUN);
+  }, [ingredients]);
+
+  const ingredientsSauce = useMemo(() => {
+    return ingredients.filter((item) => item.type === SAUCE);
+  }, [ingredients]);
+
+  const ingredientsMain = useMemo(() => {
+    return ingredients.filter((item) => item.type === MAIN);
+  }, [ingredients]);
+
   return (
     <>
-      {modal.showDetails && (
+      {burgerIngredientDetails.ingredient !== null && (
         <Modal title="Детали ингредиента">
           <IngredientsDetails
             ingredientData={burgerIngredientDetails.ingredient}
@@ -77,25 +92,23 @@ const BurgerIngredients = (props) => {
           >
             <div ref={refBun}>
               <IngredientsGroup
-                type={`bun`}
+                type={BUN}
                 title={`Булки`}
-                ingredients={ingredients.filter((item) => item.type === "bun")}
+                ingredients={ingredientsBun}
               />
             </div>
             <div ref={refSauce}>
               <IngredientsGroup
-                type={`sauce`}
+                type={SAUCE}
                 title={`Соусы`}
-                ingredients={ingredients.filter(
-                  (item) => item.type === "sauce"
-                )}
+                ingredients={ingredientsSauce}
               />
             </div>
             <div ref={refMain}>
               <IngredientsGroup
-                type={`main`}
+                type={MAIN}
                 title={`Начинки`}
-                ingredients={ingredients.filter((item) => item.type === "main")}
+                ingredients={ingredientsMain}
               />
             </div>
           </div>

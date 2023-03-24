@@ -8,7 +8,7 @@ import {
 const initialState = {
   isLoading: false,
   hasError: false,
-  ingredient: [],
+  ingredient: null,
 };
 
 const burgerIngredientDetailsReducer = (state = initialState, action) => {
@@ -30,7 +30,7 @@ const burgerIngredientDetailsReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        ingredient: [],
+        ingredient: null,
       };
     }
     case BURGER_INGREDIENT_DETAILS_FAILED: {

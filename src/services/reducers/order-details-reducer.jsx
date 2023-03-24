@@ -2,12 +2,13 @@ import {
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_FAILED,
   ORDER_DETAILS_SUCCESS,
+  ORDER_DETAILS_CLEAR,
 } from "../actions/order-details-actions";
 
 const initialState = {
   isLoading: false,
   hasError: false,
-  order: [],
+  order: null,
 };
 
 const orderDetailsReducer = (state = initialState, action) => {
@@ -26,6 +27,15 @@ const orderDetailsReducer = (state = initialState, action) => {
         order: action.payload,
       };
     }
+    case ORDER_DETAILS_CLEAR: {
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
+        order: null,
+      };
+    }
+
     case ORDER_DETAILS_FAILED: {
       return {
         ...state,

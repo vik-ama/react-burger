@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import styles from "./constructor-elements.module.sass";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import dragndropImage from "../../../images/dragndrop.svg";
@@ -28,18 +28,15 @@ const ConstructorElements = () => {
     },
   });
 
-  const moveCard = useCallback(
-    (dragIndex, hoverIndex) => {
-      const dragCard = burgerConstructor.ingredients[dragIndex];
-      const newCards = [...burgerConstructor.ingredients];
+  const moveIngredient = (dragIndex, hoverIndex) => {
+    // const dragCard = burgerConstructor.ingredients[dragIndex];
+    // const newCards = [...burgerConstructor.ingredients];
+    //
+    // newCards.splice(dragIndex, 1);
+    // newCards.splice(hoverIndex, 0, dragCard);
 
-      newCards.splice(dragIndex, 1);
-      newCards.splice(hoverIndex, 0, dragCard);
-
-      dispatch(burgerConstructorChangeIngredient(newCards));
-    },
-    [burgerConstructor, dispatch]
-  );
+    dispatch(burgerConstructorChangeIngredient(dragIndex, hoverIndex));
+  };
 
   return (
     <div
@@ -76,7 +73,7 @@ const ConstructorElements = () => {
                 item={item}
                 index={index}
                 id={item.uuid}
-                moveCard={moveCard}
+                moveIngredient={moveIngredient}
               />
             );
           })

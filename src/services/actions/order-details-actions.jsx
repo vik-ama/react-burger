@@ -5,6 +5,7 @@ export const ORDER_DETAILS_REQUEST = "ORDER_DETAILS_REQUEST";
 export const ORDER_DETAILS_SUCCESS = "ORDER_DETAILS_SUCCESS";
 
 export const ORDER_DETAILS_FAILED = "ORDER_DETAILS_FAILED";
+export const ORDER_DETAILS_CLEAR = "ORDER_DETAILS_CLEAR";
 
 export const burgerConstructorСheckout = (order) => {
   return (dispatch) => {
@@ -21,10 +22,6 @@ export const burgerConstructorСheckout = (order) => {
     })
       .then(checkResponse)
       .then((response) => {
-        console.log(response);
-        return response;
-      })
-      .then((response) => {
         dispatch({
           type: ORDER_DETAILS_SUCCESS,
           payload: response,
@@ -35,5 +32,13 @@ export const burgerConstructorСheckout = (order) => {
           type: ORDER_DETAILS_FAILED,
         });
       });
+  };
+};
+
+export const burgerConstructorClear = () => {
+  return (dispatch) => {
+    dispatch({
+      type: ORDER_DETAILS_CLEAR,
+    });
   };
 };

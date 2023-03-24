@@ -53,14 +53,15 @@ export const burgerConstructorRemoveIngredient = (index) => {
   };
 };
 
-export const burgerConstructorChangeIngredient = (ingredient) => {
+export const burgerConstructorChangeIngredient = (dragIndex, hoverIndex) => {
   return (dispatch) => {
     dispatch({
       type: BURGER_CONSTRUCTOR_REQUEST,
     });
+
     dispatch({
       type: BURGER_CONSTRUCTOR_CHANGE_INGREDIENT,
-      payload: ingredient,
+      payload: { dragIndex, hoverIndex },
     });
   };
 };

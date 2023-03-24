@@ -11,7 +11,7 @@ import { ingredientPropTypes } from "../../../utils/types";
 import PropTypes from "prop-types";
 
 const ConstructorItem = (props) => {
-  const { id, item, index, moveCard } = props;
+  const { id, item, index, moveIngredient } = props;
 
   const dispatch = useDispatch();
   const handlerRemoveInrgedient = (index) => {
@@ -41,7 +41,7 @@ const ConstructorItem = (props) => {
         return;
       }
 
-      moveCard(dragIndex, hoverIndex);
+      moveIngredient(dragIndex, hoverIndex);
 
       item.index = hoverIndex;
     },
@@ -84,7 +84,7 @@ ConstructorItem.propTypes = {
   item: ingredientPropTypes.isRequired,
   index: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
-  moveCard: PropTypes.func.isRequired,
+  //moveIngredient: PropTypes.func.isRequired,
 };
 
 export default ConstructorItem;

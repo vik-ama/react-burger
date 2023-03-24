@@ -50,10 +50,19 @@ const burgerConstructorReducer = (state = initialState, action) => {
     }
 
     case BURGER_CONSTRUCTOR_CHANGE_INGREDIENT: {
+      const newIngredient = [...state.ingredients];
+      const { dragIndex, hoverIndex } = action.payload;
+
+      newIngredient.splice(
+        hoverIndex,
+        0,
+        ...newIngredient.splice(dragIndex, 1)
+      );
+
       return {
         ...state,
         isLoading: false,
-        ingredients: [...action.payload],
+        ingredients: newIngredient,
       };
     }
 

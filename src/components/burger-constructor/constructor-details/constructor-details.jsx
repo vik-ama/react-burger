@@ -4,13 +4,13 @@ import done from "../../../images/done.png";
 import PropTypes from "prop-types";
 
 const ConstructorDetails = (props) => {
-  const { orderId } = props;
+  const { orderNumber, orderName } = props;
   return (
     <div className={`mt-20 mb-20 ${styles.constructorDetails}`}>
       <div
         className={`text text_type_digits-large ${styles.constructorDetails__id}`}
       >
-        {orderId}
+        {orderNumber}
       </div>
       <div
         className={`mt-8 text text_type_main-medium ${styles.constructorDetails__title}`}
@@ -28,14 +28,15 @@ const ConstructorDetails = (props) => {
       <div
         className={`mt-2 text text_type_main-default text_color_inactive ${styles.constructorDetails__description}`}
       >
-        Дождитесь готовности на орбитальной станции
+        Дождитесь готовности "{orderName}" на орбитальной станции
       </div>
     </div>
   );
 };
 
 ConstructorDetails.propTypes = {
-  orderId: PropTypes.number.isRequired,
+  orderNumber: PropTypes.number.isRequired,
+  orderName: PropTypes.string.isRequired,
 };
 
 export default ConstructorDetails;

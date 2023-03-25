@@ -1,14 +1,26 @@
 import React from "react";
 import styles from "./modal-overlay.module.sass";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { removeBurgerIngredientDetails } from "../../../services/actions/burger-ingredient-details-actions";
+import { burgerConstructorClear } from "../../../services/actions/order-details-actions";
 
-const ModalOverlay = (props) => {
-  const { closeModal } = props;
+const ModalOverlay = () => {
+  const dispatch = useDispatch();
+
+  const burgerIngredientDetails = useSelector(
+    (state) => state.burgerIngredientDetails
+  );
+  const orderDetails = useSelector((state) => state.orderDetails);
 
   //console.log(props);
   const handleClickOverlay = (e) => {
     if (e.target === e.currentTarget) {
-      closeModal(false);
+      if (burgerIngredientDetails.ingredient !== null) {
+        dispatch(removeBurgerIngredientDetails());
+      }
+      if (orderDetails.order !== null) {
+        dispatch(burgerConstructorClear());
+      }
     }
   };
 
@@ -21,6 +33,6 @@ const ModalOverlay = (props) => {
 };
 
 ModalOverlay.propTypes = {
-  closeModal: PropTypes.func.isRequired,
+  //closeModal: PropTypes.func.isRequired,
 };
 export default ModalOverlay;

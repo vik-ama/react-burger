@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./ingredients-details.module.sass";
 import { ingredientPropTypes } from "../../../utils/types";
-import PropTypes from "prop-types";
 
 const IngredientsDetails = (props) => {
   const {

@@ -6,33 +6,47 @@ import {
   Logo,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link, NavLink } from "react-router-dom";
 const AppHeader = () => {
   return (
     <header className={styles.app__header}>
       <div className={`${styles.appHeader}`}>
         <div className={`pt-4 pb-4 ${styles.appHeader__container}`}>
           <div className={`${styles.appHeader__navs}`}>
-            <a href="/" className={`${styles.aButton}`}>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? styles.aButtonEnable : styles.aButtonDisable
+              }
+            >
               <BurgerIcon type="primary" />
               <span className="text text_type_main-default">Констркутор</span>
-            </a>
-            <a href="/" className={`${styles.aButton}`}>
+            </NavLink>
+            <NavLink
+              to="/feed"
+              className={({ isActive }) =>
+                isActive ? styles.aButtonEnable : styles.aButtonDisable
+              }
+            >
               <ListIcon type="primary" />
-              <span className="text text_type_main-default text_color_inactive">
-                Лента заказов
-              </span>
-            </a>
+              <span className="text text_type_main-default">Лента заказов</span>
+            </NavLink>
           </div>
           <div className={`${styles.appHeader__logo}`}>
             <Logo />
           </div>
           <div className={`${styles.appHeader__lk}`}>
-            <a href="/" className={`${styles.aButton}`}>
+            <NavLink
+              to="/profile"
+              className={({ isActive }) =>
+                isActive ? styles.aButtonEnable : styles.aButtonDisable
+              }
+            >
               <ProfileIcon type="primary" />
-              <span className="text text_type_main-default text_color_inactive">
-                Личный кабнет
+              <span className="text text_type_main-default">
+                Личный кабинет
               </span>
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>

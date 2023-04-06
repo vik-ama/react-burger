@@ -15,12 +15,7 @@ export const MAIN = "main";
 
 const BurgerIngredients = (props) => {
   const { ingredients, isLoading, hasError } = props;
-
   const [current, setCurrent] = useState(BUN);
-
-  // const refBun = useRef("bun");
-  // const refSauce = useRef("sauce");
-  // const refMain = useRef("main");
 
   const burgerIngredientDetails = useSelector(
     (state) => state.burgerIngredientDetails
@@ -70,13 +65,13 @@ const BurgerIngredients = (props) => {
 
   return (
     <>
-      {burgerIngredientDetails.ingredient !== null && (
-        <Modal title="Детали ингредиента">
-          <IngredientsDetails
-            ingredientData={burgerIngredientDetails.ingredient}
-          />
-        </Modal>
-      )}
+      {/*{burgerIngredientDetails.ingredient !== null && (*/}
+      {/*  <Modal title="Детали ингредиента">*/}
+      {/*    <IngredientsDetails*/}
+      {/*      ingredientData={burgerIngredientDetails.ingredient}*/}
+      {/*    />*/}
+      {/*  </Modal>*/}
+      {/*)}*/}
 
       {!isLoading && !hasError && ingredients.length > 0 && (
         <section className={`mt-10 ${styles.burgerIngredients}`}>

@@ -8,6 +8,10 @@ const Protected = ({ onlyUnAuth = false, component }) => {
   const user = useSelector((store) => store.auth.user);
   const location = useLocation();
 
+  console.log(isAuthChecked);
+  console.log(user);
+  console.log(onlyUnAuth);
+
   if (!isAuthChecked) {
     // запрос еще выполянется
     // выводим прелоадер

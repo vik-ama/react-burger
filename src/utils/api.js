@@ -55,7 +55,7 @@ export const fetchWithRefresh = async (url, options) => {
   }
 };
 
-export const getUser = () => {
+export const setUser = () => {
   return fetchWithRefresh(AUTH_USER, {
     method: "GET",
     mode: "cors",

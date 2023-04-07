@@ -8,6 +8,7 @@ import {
   AUTH_REGISTER_FAILED,
   AUTH_REGISTER_REQUEST,
   AUTH_REGISTER_SUCCESS,
+  GET_USER_AUTH_CHECKED,
   GET_USER_CLEAR,
   GET_USER_FAILED,
   GET_USER_REQUEST,
@@ -91,6 +92,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         hasError: true,
+        isAuthChecked: true,
       };
     }
     case GET_USER_CLEAR: {
@@ -98,8 +100,16 @@ const authReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         hasError: false,
-        isAuthChecked: false,
+        isAuthChecked: true,
         user: null,
+      };
+    }
+
+    case GET_USER_AUTH_CHECKED: {
+      return {
+        ...state,
+        hasError: false,
+        isAuthChecked: true,
       };
     }
 

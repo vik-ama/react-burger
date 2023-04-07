@@ -2,10 +2,9 @@ import {
   authLogin,
   authLogout,
   authRegister,
-  getUser,
-  passwordReset,
+  refreshToken,
+  setUser,
 } from "../../utils/api";
-import { useNavigate } from "react-router-dom";
 
 export const AUTH_REGISTER_REQUEST = "AUTH_REGISTER_REQUEST";
 export const AUTH_REGISTER_SUCCESS = "AUTH_REGISTER_SUCCESS";
@@ -23,6 +22,7 @@ export const GET_USER_REQUEST = "GET_USER_REQUEST";
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
 export const GET_USER_FAILED = "GET_USER_FAILED";
 export const GET_USER_CLEAR = "GET_USER_CLEAR";
+export const GET_USER_AUTH_CHECKED = "GET_USER_AUTH_CHECKED";
 
 export const AUTH_LOGOUT_REQUEST = "AUTH_LOGOUT_REQUEST";
 export const AUTH_LOGOUT_SUCCESS = "AUTH_LOGOUT_SUCCESS";
@@ -77,12 +77,12 @@ export const sendLoginForm = (email, password) => {
 };
 
 // получаем данные пользователя
-export const getUserAuth = () => {
+export const getUser = () => {
   return (dispatch) => {
     dispatch({
       type: GET_USER_REQUEST,
     });
-    getUser()
+    setUser()
       .then((response) => {
         if (response && response.success) {
           dispatch({
@@ -90,13 +90,6 @@ export const getUserAuth = () => {
             payload: response.user,
           });
         }
-        // else {
-        //   localStorage.removeItem("accessToken");
-        //   localStorage.removeItem("refreshToken");
-        //   dispatch({
-        //     type: GET_USER_CLEAR,
-        //   });
-        // }
       })
       .catch(() => {
         dispatch({
@@ -109,24 +102,51 @@ export const getUserAuth = () => {
 // проверяем авторизованли пользователь
 export const checkUserAuth = () => {
   return (dispatch) => {
+    dispatch({
+      type: GET_USER_REQUEST,
+    });
     if (localStorage.getItem("accessToken")) {
-      //console.log(localStorage.getItem("accessToken"));
-      dispatch(getUserAuth())
-        .catch(() => {
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("refreshToken");
-          dispatch(getUserAuth(null));
-        })
-        .finally(() =>
-          dispatch({
-            type: GET_USER_SUCCESS,
-          })
-        );
+      console.log("мы здесь");
+      // getUser().catch(() => {
+      //   localStorage.removeItem("accessToken");
+      //   localStorage.removeItem("refreshToken");
+      //   dispatch({
+      //     type: GET_USER_CLEAR,
+      //   }).finally(() => {
+      //     dispatch({
+      //       type: GET_USER_AUTH_CHECKED,
+      //     });
+      //   });
+      // });
     } else {
       dispatch({
-        type: GET_USER_SUCCESS,
+        type: GET_USER_AUTH_CHECKED,
       });
     }
+    // setUser()
+    //   .then((response) => {
+    //     if (response && response.success) {
+    //       dispatch({
+    //         type: GET_USER_SUCCESS,
+    //         payload: response.user,
+    //       });
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     if (localStorage.getItem("refreshToken")) {
+    //       // чтото не работает тут
+    //       //dispatch(refreshToken());
+    //     }
+    //     dispatch({
+    //       type: GET_USER_FAILED,
+    //     });
+    //   })
+    //   .finally(() => {
+    //     dispatch({
+    //       type: GET_USER_AUTH_CHECKED,
+    //     });
+    //   });
   };
 };
 

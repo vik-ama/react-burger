@@ -43,7 +43,9 @@ const Profile = () => {
             </NavLink>
           </li>
           <li className="text text_type_main-medium">
-            <button onClick={handleLogout}>Выход</button>
+            <button className="text_type_main-medium" onClick={handleLogout}>
+              Выход
+            </button>
           </li>
         </ul>
         <div

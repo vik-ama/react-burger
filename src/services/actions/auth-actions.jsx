@@ -106,7 +106,8 @@ export const checkUserAuth = () => {
       type: GET_USER_REQUEST,
     });
     if (localStorage.getItem("accessToken")) {
-      console.log("мы здесь");
+      console.log("вот тут не понимаю что делать");
+
       // getUser().catch(() => {
       //   localStorage.removeItem("accessToken");
       //   localStorage.removeItem("refreshToken");
@@ -118,6 +119,10 @@ export const checkUserAuth = () => {
       //     });
       //   });
       // });
+
+      dispatch({
+        type: GET_USER_AUTH_CHECKED,
+      });
     } else {
       dispatch({
         type: GET_USER_AUTH_CHECKED,
@@ -155,11 +160,12 @@ export const logoutUser = () => {
     dispatch({
       type: AUTH_LOGOUT_REQUEST,
     });
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+
     authLogout()
       .then((response) => {
         dispatch({ type: AUTH_LOGOUT_SUCCESS });
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
       })
       .catch(() => {
         dispatch({ type: AUTH_LOGOUT_FAILED });

@@ -24,9 +24,6 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getBurgerIngredients());
-    // if (localStorage.getItem("accessToken")) {
-    //   dispatch(checkUserAuth());
-    // }
     dispatch(checkUserAuth());
   }, [dispatch]);
 
@@ -54,6 +51,7 @@ function App() {
                 />
               }
             />
+            {/*<Route path="/login" element={<Login />} />*/}
             <Route
               path="/login"
               element={<OnlyUnAuth component={<Login />} />}
@@ -62,11 +60,8 @@ function App() {
               path="/register"
               element={<OnlyUnAuth component={<Register />} />}
             />
-
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-
-            {/*<Route path="/profile" element={<Profile />}>*/}
             <Route
               path="/profile"
               element={<OnlyAuth component={<Profile />} />}

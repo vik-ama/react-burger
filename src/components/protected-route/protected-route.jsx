@@ -8,17 +8,19 @@ const Protected = ({ onlyUnAuth = false, component }) => {
   const user = useSelector((store) => store.auth.user);
   const location = useLocation();
 
-  console.log(isAuthChecked);
-  console.log(user);
-  console.log(onlyUnAuth);
+  // console.log(isAuthChecked);
+  // console.log(user);
+  // console.log(onlyUnAuth);
 
   if (!isAuthChecked) {
+    console.log("!isAuthChecked");
     // запрос еще выполянется
     // выводим прелоадер
     return <Preloader />;
   }
 
   if (onlyUnAuth && user) {
+    console.log("onlyUnAuth && user");
     // пользователь авторизован, но роут предназначен для неавторизованных пользователей
     // делам редирект на главную страницу или на тот адрес что записан в location.store
     const { from } = location.state || { from: { pathname: "/" } };
@@ -26,6 +28,7 @@ const Protected = ({ onlyUnAuth = false, component }) => {
   }
 
   if (!onlyUnAuth && !user) {
+    console.log("!onlyUnAuth && !user");
     return <Navigate to="/login" state={{ from: location }} />;
   }
 
@@ -35,5 +38,5 @@ const Protected = ({ onlyUnAuth = false, component }) => {
 
 export const OnlyAuth = Protected;
 export const OnlyUnAuth = ({ component }) => (
-  <Protected onlyUnAuth={true} component />
+  <Protected onlyUnAuth={true} component={component} />
 );

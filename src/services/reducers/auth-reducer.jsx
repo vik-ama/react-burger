@@ -110,6 +110,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         hasError: false,
         isAuthChecked: true,
+        isLoading: false,
       };
     }
 
@@ -123,7 +124,6 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        isAuthChecked: false,
         user: null,
       };
     }

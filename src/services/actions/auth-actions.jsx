@@ -120,6 +120,10 @@ export const checkUserAuth = () => {
       //   });
       // });
 
+      setUser().then((response) => {
+        console.log(response);
+      });
+
       dispatch({
         type: GET_USER_AUTH_CHECKED,
       });

@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import AppHeader from "../app-header/app-header";
 import Preloader from "../preloader/preloader";
 import { useDispatch, useSelector } from "react-redux";
 import { getBurgerIngredients } from "../../services/actions/burger-ingredients-actions";
 import Main from "../../pages/main/main";
-import { Route, Routes, useLocation, useParams } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Login from "../../pages/login/login";
 import Register from "../../pages/register/register";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
@@ -51,7 +51,6 @@ function App() {
                 />
               }
             />
-            {/*<Route path="/login" element={<Login />} />*/}
             <Route
               path="/login"
               element={<OnlyUnAuth component={<Login />} />}
@@ -60,8 +59,18 @@ function App() {
               path="/register"
               element={<OnlyUnAuth component={<Register />} />}
             />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
+            {/*<Route path="/forgot-password" element={<ForgotPassword />} />*/}
+            <Route
+              path="/forgot-password"
+              element={<OnlyUnAuth component={<ForgotPassword />} />}
+            />
+
+            {/*<Route path="/reset-password" element={<ResetPassword />} />*/}
+            <Route
+              path="/reset-password"
+              element={<OnlyUnAuth component={<ResetPassword />} />}
+            />
+
             <Route
               path="/profile"
               element={<OnlyAuth component={<Profile />} />}

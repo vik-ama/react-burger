@@ -3,9 +3,8 @@ import {
   Button,
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./forgot-password.module.sass";
-import { useDispatch } from "react-redux";
 import { passwordReset } from "../../utils/api";
 
 const ForgotPassword = () => {
@@ -14,6 +13,8 @@ const ForgotPassword = () => {
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -31,7 +32,7 @@ const ForgotPassword = () => {
       if (email !== "" && email.length > 0) {
         passwordReset(email).then((response) => {
           if (response && response.success) {
-            navigate("/reset-password", { replace: true });
+            navigate("/reset-password", { state: { from: location.pathname } });
           } else {
             setError(
               "Произошла ошибка, проверьте правильность заполения email"
@@ -40,7 +41,7 @@ const ForgotPassword = () => {
         });
       }
     },
-    [email]
+    [email, location.pathname, navigate]
   );
 
   return (

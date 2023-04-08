@@ -8,14 +8,14 @@ import {
   AUTH_REGISTER_FAILED,
   AUTH_REGISTER_REQUEST,
   AUTH_REGISTER_SUCCESS,
+  CHANGE_USER_FAILED,
+  CHANGE_USER_REQUEST,
+  CHANGE_USER_SUCCESS,
   GET_USER_AUTH_CHECKED,
   GET_USER_CLEAR,
   GET_USER_FAILED,
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
-  PASSWORD_RESET_FAILED,
-  PASSWORD_RESET_REQUEST,
-  PASSWORD_RESET_SUCCESS,
 } from "../actions/auth-actions";
 
 const initialState = {
@@ -128,6 +128,28 @@ const authReducer = (state = initialState, action) => {
       };
     }
     case AUTH_LOGOUT_FAILED: {
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true,
+      };
+    }
+
+    case CHANGE_USER_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case CHANGE_USER_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        user: action.payload,
+        isAuthChecked: true,
+      };
+    }
+    case CHANGE_USER_FAILED: {
       return {
         ...state,
         isLoading: false,

@@ -1,9 +1,3 @@
-import {
-  PASSWORD_RESET_FAILED,
-  PASSWORD_RESET_REQUEST,
-  PASSWORD_RESET_SUCCESS,
-} from "../services/actions/auth-actions";
-
 export const NORMA_API = "https://norma.nomoreparties.space/api";
 
 export const INGREDIENTS = `${NORMA_API}/ingredients`;
@@ -55,18 +49,23 @@ export const fetchWithRefresh = async (url, options) => {
   }
 };
 
-export const setUser = () => {
+export const setUser = (form) => {
   return fetchWithRefresh(AUTH_USER, {
-    method: "GET",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       authorization: localStorage.getItem("accessToken"),
     },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
+    body: JSON.stringify(form),
+  });
+};
+export const getUser = () => {
+  return fetchWithRefresh(AUTH_USER, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: localStorage.getItem("accessToken"),
+    },
   });
 };
 

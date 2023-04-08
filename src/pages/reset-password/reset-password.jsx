@@ -4,17 +4,24 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./reset-password.module.sass";
-import { passwordChange, passwordReset } from "../../utils/api";
+import { passwordChange } from "../../utils/api";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [message, setMessage] = useState(null);
+
+  useEffect(() => {
+    if (location.state === null || location.state.from !== "/forgot-password") {
+      navigate("/", { replace: true });
+    }
+  }, [navigate, location.state]);
 
   const onChangePassword = (e) => {
     setPassword(e.target.value);
@@ -53,7 +60,7 @@ const ResetPassword = () => {
         });
       }
     },
-    [password, code]
+    [navigate, password, code]
   );
 
   return (

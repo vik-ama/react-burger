@@ -7,14 +7,20 @@ import { useDispatch } from "react-redux";
 const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleLogout = useCallback(
-    (e) => {
-      e.preventDefault();
-      dispatch(logoutUser());
-      navigate("/", { replace: true });
-    },
-    [dispatch]
-  );
+
+  // const handleLogout = useCallback(
+  //   (e) => {
+  //     e.preventDefault();
+  //     dispatch(logoutUser());
+  //     navigate("/login", { replace: true });
+  //   },
+  //   [dispatch, navigate]
+  // );
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logoutUser());
+    navigate("/login", { replace: true });
+  };
 
   return (
     <div className={styles.profile}>

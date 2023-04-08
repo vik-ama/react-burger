@@ -8,19 +8,14 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const handleLogout = useCallback(
-  //   (e) => {
-  //     e.preventDefault();
-  //     dispatch(logoutUser());
-  //     navigate("/login", { replace: true });
-  //   },
-  //   [dispatch, navigate]
-  // );
-  const handleLogout = (e) => {
-    e.preventDefault();
-    dispatch(logoutUser());
-    navigate("/login", { replace: true });
-  };
+  const handleLogout = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch(logoutUser());
+      navigate("/login", { replace: true });
+    },
+    [dispatch, navigate]
+  );
 
   return (
     <div className={styles.profile}>

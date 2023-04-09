@@ -1,10 +1,7 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import styles from "./ingredients-details.module.sass";
 import { ingredientPropTypes } from "../../../utils/types";
 import { useParams } from "react-router-dom";
-import { getBurgerIngredients } from "../../../services/actions/burger-ingredients-actions";
-import { useDispatch, useSelector } from "react-redux";
-import Preloader from "../../preloader/preloader";
 
 const IngredientsDetails = (props) => {
   const { ingredients, isLoading } = props;
@@ -64,7 +61,7 @@ const IngredientsDetails = (props) => {
 };
 
 IngredientsDetails.propTypes = {
-  ingredientData: ingredientPropTypes,
+  ingredientData: ingredientPropTypes.isRequired,
 };
 
 export default IngredientsDetails;

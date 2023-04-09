@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { NameInput } from "../ui/input-name";
 import { EmailInput } from "../ui/input-email";
 import { PasswordInput } from "../ui/input-password";
@@ -6,29 +6,27 @@ import styles from "../../pages/profile/profile.module.sass";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { changeUser } from "../../services/actions/auth-actions";
+import useForm from "../../hook/useForm";
 
 const ProfileForm = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
-  const [values, setValues] = useState({
+  const { values, setValues, handleChange } = useForm({
     name: user.name,
     email: user.email,
     password: "*****",
   });
 
-  const handleChangeValues = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+  const defaultValues = {
+    name: user.name,
+    email: user.email,
+    password: "*****",
   };
 
   const handleReset = (e) => {
     e.preventDefault();
-    setValues({
-      ...values,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-    });
+    setValues(defaultValues);
   };
 
   const handleSubmitForm = (e) => {
@@ -40,31 +38,31 @@ const ProfileForm = () => {
     <div className={styles.profile__form}>
       <form onSubmit={handleSubmitForm}>
         <NameInput
-          onChange={handleChangeValues}
+          onChange={handleChange}
           value={values.name}
           name={"name"}
           placeholder="Имя"
-          isIcon={true}
+          isIcon
         />
         <EmailInput
-          onChange={handleChangeValues}
+          onChange={handleChange}
           value={values.email}
           name={"email"}
           placeholder="Логин"
-          isIcon={true}
+          isIcon
           extraClass="mt-6"
         />
         <PasswordInput
-          onChange={handleChangeValues}
+          onChange={handleChange}
           value={values.password}
           name={"password"}
-          isIcon={true}
+          isIcon
           placeholder="Пароль"
           extraClass="mt-6"
         />
         {(values.name !== user.name ||
           values.email !== user.email ||
-          values.password !== user.password) && (
+          (values.password !== "*****" && values.password.length > 0)) && (
           <div className={`mt-6 ${styles.profile__buttons}`}>
             <Button
               htmlType="button"

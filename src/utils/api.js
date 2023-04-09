@@ -96,7 +96,7 @@ export const authRegister = (name, email, password) => {
     });
 };
 
-export const authLogin = (email, password) => {
+export const authLogin = (values) => {
   return fetch(AUTH_LOGIN, {
     method: "POST",
     mode: "cors",
@@ -107,7 +107,7 @@ export const authLogin = (email, password) => {
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
-    body: JSON.stringify({ email: email, password: password }),
+    body: JSON.stringify(values),
   })
     .then(checkResponse)
     .catch((error) => {
@@ -115,7 +115,7 @@ export const authLogin = (email, password) => {
     });
 };
 
-export const passwordReset = (email) => {
+export const passwordReset = (values) => {
   return fetch(PASSWORD_RESET, {
     method: "POST",
     mode: "cors",
@@ -126,15 +126,11 @@ export const passwordReset = (email) => {
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
-    body: JSON.stringify({ email: email }),
-  })
-    .then(checkResponse)
-    .catch((error) => {
-      console.log(error);
-    });
+    body: JSON.stringify(values),
+  }).then(checkResponse);
 };
 
-export const passwordChange = (password, token) => {
+export const passwordChange = (values) => {
   return fetch(PASSWORD_RESET_RESET, {
     method: "POST",
     mode: "cors",
@@ -145,7 +141,7 @@ export const passwordChange = (password, token) => {
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
-    body: JSON.stringify({ password: password, token: token }),
+    body: JSON.stringify(values),
   })
     .then(checkResponse)
     .catch((error) => {

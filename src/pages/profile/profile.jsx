@@ -1,20 +1,16 @@
-import React, { useCallback } from "react";
+import React from "react";
 import styles from "./profile.module.sass";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { logoutUser } from "../../services/actions/auth-actions";
 import { useDispatch } from "react-redux";
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const handleLogout = useCallback(
-    (e) => {
-      e.preventDefault();
-      dispatch(logoutUser());
-    },
-    [dispatch]
-  );
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logoutUser());
+  };
 
   return (
     <div className={styles.profile}>

@@ -56,12 +56,12 @@ export const sendRegisterForm = (name, email, password) => {
   };
 };
 
-export const sendLoginForm = (email, password) => {
+export const sendLoginForm = (values) => {
   return (dispatch) => {
     dispatch({
       type: AUTH_LOGIN_REQUEST,
     });
-    authLogin(email, password)
+    authLogin(values)
       .then((response) => {
         if (response && response.success) {
           dispatch({

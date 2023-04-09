@@ -7,14 +7,15 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./reset-password.module.sass";
 import { passwordChange } from "../../utils/api";
+import useForm from "../../hook/useForm";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [password, setPassword] = useState("");
-  const [code, setCode] = useState("");
-  const [buttonDisabled, setButtonDisabled] = useState(true);
+  // const [password, setPassword] = useState("");
+  // const [code, setCode] = useState("");
+  const { values, handleChange } = useForm({ password: "", token: "" });
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
@@ -23,34 +24,23 @@ const ResetPassword = () => {
     }
   }, [navigate, location.state]);
 
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
-  const onChangeCode = (e) => {
-    setCode(e.target.value);
-  };
-
-  useEffect(() => {
-    if (
-      password !== "" &&
-      password.length > 0 &&
-      code !== "" &&
-      code.length > 0
-    ) {
-      setButtonDisabled(false);
-    }
-  }, [password, code]);
+  // const onChangePassword = (e) => {
+  //   setPassword(e.target.value);
+  // };
+  // const onChangeCode = (e) => {
+  //   setCode(e.target.value);
+  // };
 
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
       if (
-        password !== "" &&
-        password.length > 0 &&
-        code !== "" &&
-        code.length > 0
+        values.password !== "" &&
+        values.password.length > 0 &&
+        values.token !== "" &&
+        values.token.length > 0
       ) {
-        passwordChange(password, code).then((response) => {
+        passwordChange(values).then((response) => {
           if (response && response.success) {
             setMessage("Пароль успешно изменен!");
             navigate("/login", { replace: true });
@@ -60,7 +50,7 @@ const ResetPassword = () => {
         });
       }
     },
-    [navigate, password, code]
+    [navigate, values]
   );
 
   return (
@@ -68,8 +58,8 @@ const ResetPassword = () => {
       <div className="text text_type_main-medium">Восстановление пароля</div>
       <form onSubmit={onSubmit}>
         <PasswordInput
-          onChange={onChangePassword}
-          value={password}
+          onChange={handleChange}
+          value={values.password}
           name={"password"}
           extraClass="mt-6"
           placeholder={"Введите новый пароль"}
@@ -77,9 +67,9 @@ const ResetPassword = () => {
         <Input
           type={"text"}
           placeholder={"Введите код из письма"}
-          onChange={onChangeCode}
-          value={code}
-          name={"name"}
+          onChange={handleChange}
+          value={values.token}
+          name={"token"}
           error={false}
           extraClass="mt-6"
         />
@@ -88,7 +78,14 @@ const ResetPassword = () => {
           type="primary"
           size="medium"
           extraClass="mt-6"
-          disabled={buttonDisabled}
+          disabled={
+            values.password !== "" &&
+            values.password.length > 0 &&
+            values.token !== "" &&
+            values.token.length > 0
+              ? false
+              : true
+          }
         >
           Сохранить
         </Button>

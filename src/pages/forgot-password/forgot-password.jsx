@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Button,
   EmailInput,
@@ -6,42 +6,37 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./forgot-password.module.sass";
 import { passwordReset } from "../../utils/api";
+import useForm from "../../hook/useForm";
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
-  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const { values, handleChange } = useForm({ email: "" });
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
-
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  useEffect(() => {
-    if (email !== "" && email.length > 0) {
-      setButtonDisabled(false);
-    }
-  }, [email]);
 
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      if (email !== "" && email.length > 0) {
-        passwordReset(email).then((response) => {
-          if (response && response.success) {
-            navigate("/reset-password", { state: { from: location.pathname } });
-          } else {
-            setError(
-              "Произошла ошибка, проверьте правильность заполения email"
-            );
-          }
-        });
+      if (values.email !== "" && values.email.length > 0) {
+        passwordReset(values)
+          .then((response) => {
+            if (response && response.success) {
+              navigate("/reset-password", {
+                state: { from: location.pathname },
+              });
+            } else {
+              setError(
+                "Произошла ошибка, проверьте правильность заполения email"
+              );
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     },
-    [email, location.pathname, navigate]
+    [values, location.pathname, navigate]
   );
 
   return (
@@ -50,8 +45,8 @@ const ForgotPassword = () => {
       <form onSubmit={onSubmit}>
         <EmailInput
           placeholder={"Укажите e-mail"}
-          onChange={onChangeEmail}
-          value={email}
+          onChange={handleChange}
+          value={values.email}
           name={"email"}
           isIcon={false}
           extraClass="mt-6"
@@ -61,7 +56,9 @@ const ForgotPassword = () => {
           type="primary"
           size="medium"
           extraClass="mt-6"
-          disabled={buttonDisabled}
+          disabled={
+            values.email !== "" && values.email.length > 0 ? false : true
+          }
         >
           Восстановить
         </Button>

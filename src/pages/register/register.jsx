@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Button,
   EmailInput,
@@ -7,7 +7,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./register.module.sass";
 import { Link, useNavigate } from "react-router-dom";
-import { authRegister } from "../../utils/api";
 import { useDispatch } from "react-redux";
 import { sendRegisterForm } from "../../services/actions/auth-actions";
 
@@ -15,7 +14,6 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,12 +27,6 @@ const Register = () => {
   const onChangePassword = (e) => {
     setPassword(e.target.value);
   };
-
-  useEffect(() => {
-    if (name !== "" && email !== "" && password !== "") {
-      setButtonDisabled(false);
-    }
-  }, [name, email, password]);
 
   const onSubmit = useCallback(
     (e) => {
@@ -85,7 +77,16 @@ const Register = () => {
           type="primary"
           size="medium"
           extraClass="mt-6"
-          disabled={buttonDisabled}
+          disabled={
+            name !== "" &&
+            name.length > 0 &&
+            email !== "" &&
+            email.length > 0 &&
+            password !== "" &&
+            password.length > 0
+              ? false
+              : true
+          }
         >
           Зарегистрироваться
         </Button>

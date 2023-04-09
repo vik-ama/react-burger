@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import {
   Button,
   EmailInput,
@@ -6,62 +6,42 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./login.module.sass";
-import {
-  sendLoginForm,
-  sendRegisterForm,
-} from "../../services/actions/auth-actions";
+import { sendLoginForm } from "../../services/actions/auth-actions";
 import { useDispatch } from "react-redux";
+import useForm from "../../hook/useForm";
 
 const Login = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [buttonDisabled, setButtonDisabled] = useState(true);
-
+  const { values, handleChange } = useForm({ email: "", password: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
 
-  useEffect(() => {
-    if (email !== "" && password !== "") {
-      setButtonDisabled(false);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (
+      values.email !== "" &&
+      values.email.length > 0 &&
+      values.password !== "" &&
+      values.password.length > 0
+    ) {
+      dispatch(sendLoginForm(values));
+      navigate("/", { replace: true });
     }
-  }, [email, password]);
-
-  const onSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      if (
-        email !== "" &&
-        email.length > 0 &&
-        password !== "" &&
-        password.length > 0
-      ) {
-        dispatch(sendLoginForm(email, password));
-        navigate("/", { replace: true });
-      }
-    },
-    [dispatch, navigate, email, password]
-  );
+  };
 
   return (
     <div className={styles.login}>
       <div className="text text_type_main-medium">Вход</div>
       <form onSubmit={onSubmit}>
         <EmailInput
-          onChange={onChangeEmail}
-          value={email}
+          onChange={handleChange}
+          value={values.email}
           name={"email"}
           isIcon={false}
           extraClass="mt-6"
         />
         <PasswordInput
-          onChange={onChangePassword}
-          value={password}
+          onChange={handleChange}
+          value={values.password}
           name={"password"}
           extraClass="mt-6"
         />
@@ -70,7 +50,14 @@ const Login = () => {
           type="primary"
           size="medium"
           extraClass="mt-6"
-          disabled={buttonDisabled}
+          disabled={
+            values.email !== "" &&
+            values.email.length > 0 &&
+            values.password !== "" &&
+            values.password.length > 0
+              ? false
+              : true
+          }
         >
           Войти
         </Button>

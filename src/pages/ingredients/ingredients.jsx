@@ -1,11 +1,9 @@
-import React, { useEffect, useMemo } from "react";
+import React from "react";
 import IngredientsDetails from "../../components/burger-ingredients/ingredients-details/ingredients-details";
-import { useParams } from "react-router-dom";
-import Page404 from "../page404/page404";
 import styles from "./ingredients.module.sass";
-import { getBurgerIngredients } from "../../services/actions/burger-ingredients-actions";
-import { useDispatch, useSelector } from "react-redux";
 import Preloader from "../../components/preloader/preloader";
+import PropTypes from "prop-types";
+import { ingredientPropTypes } from "../../utils/types";
 
 const Ingredients = (props) => {
   const { ingredients, isLoading } = props;
@@ -31,6 +29,11 @@ const Ingredients = (props) => {
       </>
     </div>
   );
+};
+
+Ingredients.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default Ingredients;

@@ -12,9 +12,8 @@ const Profile = () => {
     (e) => {
       e.preventDefault();
       dispatch(logoutUser());
-      navigate("/login", { replace: true });
     },
-    [dispatch, navigate]
+    [dispatch]
   );
 
   return (

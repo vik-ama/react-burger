@@ -23,8 +23,7 @@ const Login = () => {
       values.password !== "" &&
       values.password.length > 0
     ) {
-      dispatch(sendLoginForm(values));
-      navigate("/", { replace: true });
+      dispatch(sendLoginForm(values, { onSuccess: () => navigate("/") }));
     }
   };
 

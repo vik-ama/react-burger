@@ -56,12 +56,12 @@ export const sendRegisterForm = (name, email, password) => {
   };
 };
 
-export const sendLoginForm = (values) => {
+export const sendLoginForm = (values, onSuccess) => {
   return (dispatch) => {
     dispatch({
       type: AUTH_LOGIN_REQUEST,
     });
-    authLogin(values)
+    return authLogin(values)
       .then((response) => {
         if (response && response.success) {
           dispatch({
@@ -70,6 +70,7 @@ export const sendLoginForm = (values) => {
           });
           localStorage.setItem("accessToken", response.accessToken);
           localStorage.setItem("refreshToken", response.refreshToken);
+          onSuccess();
         }
       })
       .catch(() => {

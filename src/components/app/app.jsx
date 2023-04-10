@@ -59,13 +59,11 @@ function App() {
               path="/register"
               element={<OnlyUnAuth component={<Register />} />}
             />
-            {/*<Route path="/forgot-password" element={<ForgotPassword />} />*/}
             <Route
               path="/forgot-password"
               element={<OnlyUnAuth component={<ForgotPassword />} />}
             />
 
-            {/*<Route path="/reset-password" element={<ResetPassword />} />*/}
             <Route
               path="/reset-password"
               element={<OnlyUnAuth component={<ResetPassword />} />}

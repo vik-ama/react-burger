@@ -1,23 +1,37 @@
 import React, { useEffect } from "react";
-import styles from "./app.module.sass";
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
 import Preloader from "../preloader/preloader";
 import { useDispatch, useSelector } from "react-redux";
 import { getBurgerIngredients } from "../../services/actions/burger-ingredients-actions";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import Main from "../../pages/main/main";
+import { Route, Routes, useLocation } from "react-router-dom";
+import Login from "../../pages/login/login";
+import Register from "../../pages/register/register";
+import ForgotPassword from "../../pages/forgot-password/forgot-password";
+import ResetPassword from "../../pages/reset-password/reset-password";
+import Profile from "../../pages/profile/profile";
+import Ingredients from "../../pages/ingredients/ingredients";
+import Page404 from "../../pages/page404/page404";
+import Feed from "../../pages/feed/feed";
+import ProfileForm from "../profile-form/profile-form";
+import ProfileHistory from "../profile-history/profile-history";
+import IngredientsDetails from "../burger-ingredients/ingredients-details/ingredients-details";
+import Modal from "../modal/modal";
+import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
+import { checkUserAuth } from "../../services/actions/auth-actions";
 
 function App() {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBurgerIngredients());
+    dispatch(checkUserAuth());
+  }, [dispatch]);
+
   const { ingredients, hasError, isLoading } = useSelector(
     (state) => state.burgerIngredients
   );
-
-  useEffect(() => {
-    dispatch(getBurgerIngredients());
-  }, [dispatch]);
+  const location = useLocation();
+  const state = location.state?.backgroundLocation;
 
   return (
     <>
@@ -25,16 +39,68 @@ function App() {
       {!isLoading && (
         <>
           <AppHeader />
-          <main className={styles.app__main}>
-            <DndProvider backend={HTML5Backend}>
-              <BurgerIngredients
-                ingredients={ingredients}
-                isLoading={isLoading}
-                hasError={hasError}
+
+          <Routes location={state || location}>
+            <Route
+              path="/"
+              element={
+                <Main
+                  ingredients={ingredients}
+                  isLoading={isLoading}
+                  hasError={hasError}
+                />
+              }
+            />
+            <Route
+              path="/login"
+              element={<OnlyUnAuth component={<Login />} />}
+            />
+            <Route
+              path="/register"
+              element={<OnlyUnAuth component={<Register />} />}
+            />
+            <Route
+              path="/forgot-password"
+              element={<OnlyUnAuth component={<ForgotPassword />} />}
+            />
+
+            <Route
+              path="/reset-password"
+              element={<OnlyUnAuth component={<ResetPassword />} />}
+            />
+
+            <Route
+              path="/profile"
+              element={<OnlyAuth component={<Profile />} />}
+            >
+              <Route index element={<ProfileForm />} />
+              <Route path="/profile/orders/:id" element={<ProfileHistory />} />
+            </Route>
+            <Route path="feed" element={<Feed />} />
+            <Route
+              path="/ingredients/:id"
+              element={
+                <Ingredients ingredients={ingredients} isLoading={isLoading} />
+              }
+            />
+            <Route path="*" element={<Page404 />} />
+          </Routes>
+
+          {state && (
+            <Routes>
+              <Route
+                path="/ingredients/:id"
+                element={
+                  <Modal title="Детали ингредиента">
+                    <IngredientsDetails
+                      ingredients={ingredients}
+                      isLoading={isLoading}
+                    />
+                  </Modal>
+                }
               />
-              <BurgerConstructor isLoading={isLoading} hasError={hasError} />
-            </DndProvider>
-          </main>
+            </Routes>
+          )}
         </>
       )}
     </>

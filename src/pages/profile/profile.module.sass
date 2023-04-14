@@ -1,0 +1,69 @@
+.profile
+    position: relative
+    display: flex
+    flex-direction: row
+    justify-content: flex-start
+    align-items: flex-start
+    gap: 60px
+    max-width: 1240px
+    width: 100%
+    margin-left: auto
+    margin-right: auto
+    height: auto
+    margin-top: 120px
+
+    & nav
+        width: calc((100% - 480px - 60px) / 2)
+
+        & ul
+            padding: 0
+            margin: 0
+            list-style: none
+
+            & li
+                & a
+                    text-decoration: none
+                    padding: 16px 0
+                    display: block
+                    transition: ease-in .3s
+
+                    &:hover
+                        cursor: pointer
+                        color: #ffffff
+
+                & button
+                    text-decoration: none
+                    padding: 16px 0
+                    display: block
+                    transition: ease-in .3s
+                    background-color: unset
+                    color: #8585ad
+                    border: unset
+
+                    &:hover
+                        cursor: pointer
+                        color: #ffffff
+
+    &__note
+        color: #8585AD
+        opacity: .4
+
+    & main
+        max-width: 100%
+        display: flex
+        flex-direction: column
+        justify-content: center
+
+    &__buttons
+        display: flex
+        flex-direction: row
+        justify-content: flex-end
+        align-items: center
+
+    &__form
+        max-width: 480px
+        display: flex
+        flex-direction: column
+        justify-content: center
+
+

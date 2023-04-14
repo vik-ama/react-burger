@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./constructor-total.module.sass";
 import {
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { burgerConstructorСheckout } from "../../../services/actions/order-details-actions";
 import { ingredientPropTypes } from "../../../utils/types";
+import { useNavigate } from "react-router-dom";
 
 const ConstructorTotal = (props) => {
   const { orderPrice = 0, orderIngredients } = props;
+  const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOpenModal = () => {
-    dispatch(burgerConstructorСheckout(orderIngredients));
+    if (user !== null) {
+      dispatch(burgerConstructorСheckout(orderIngredients));
+    } else {
+      navigate("/login", { replace: true });
+    }
   };
 
   return (

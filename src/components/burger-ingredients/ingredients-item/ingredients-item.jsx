@@ -8,10 +8,15 @@ import { ingredientPropTypes } from "../../../utils/types";
 import { useDrag } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { addBurgerIngredientDetails } from "../../../services/actions/burger-ingredient-details-actions";
+import { Link, useLocation } from "react-router-dom";
 
 const IngredientsItem = (props) => {
   const { ingredient } = props;
   const dispatch = useDispatch();
+
+  const location = useLocation();
+
+  //console.log(location);
 
   const handleOpenModal = (ingredient) => {
     dispatch(addBurgerIngredientDetails(ingredient));
@@ -47,12 +52,14 @@ const IngredientsItem = (props) => {
   });
 
   return (
-    <div
+    <Link
+      to={`/ingredients/${ingredient._id}`}
       className={`${styles.ingredientsItem} ${
         isDrag ? styles.ingredientsItem__drag : ""
       }`}
       onClick={() => handleOpenModal(ingredient)}
       ref={dragRef}
+      state={{ backgroundLocation: location }}
     >
       <div className={`ml-4 mr-4 ${styles.ingredientsItem__image}`}>
         <img src={ingredient.image} alt={ingredient.name} />
@@ -70,12 +77,12 @@ const IngredientsItem = (props) => {
           <Counter count={count} size="default" extraClass="m-1" />
         </div>
       )}
-    </div>
+    </Link>
   );
 };
 
 IngredientsItem.propTypes = {
-  ingredient: ingredientPropTypes.isRequired,
+  ingredient: ingredientPropTypes,
 };
 
 export default IngredientsItem;

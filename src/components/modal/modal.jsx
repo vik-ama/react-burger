@@ -7,35 +7,31 @@ import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeBurgerIngredientDetails } from "../../services/actions/burger-ingredient-details-actions";
 import { burgerConstructorClear } from "../../services/actions/order-details-actions";
+import { useNavigate } from "react-router-dom";
 
 const rootModal = document.querySelector("#root-modal");
 
 const Modal = (props) => {
   const { title, children } = props;
-  const burgerIngredientDetails = useSelector(
-    (state) => state.burgerIngredientDetails
-  );
+
   const orderDetails = useSelector((state) => state.orderDetails);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleCloseModal = () => {
-    if (burgerIngredientDetails.ingredient !== null) {
-      dispatch(removeBurgerIngredientDetails());
-    }
     if (orderDetails.order !== null) {
       dispatch(burgerConstructorClear());
     }
+    navigate("/", { replace: true });
   };
 
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.keyCode === 27) {
-        if (burgerIngredientDetails.ingredient !== null) {
-          dispatch(removeBurgerIngredientDetails());
-        }
         if (orderDetails.order !== null) {
           dispatch(burgerConstructorClear());
         }
+        navigate("/", { replace: true });
       }
     };
     document.addEventListener("keydown", handleEscape);
@@ -43,7 +39,7 @@ const Modal = (props) => {
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [dispatch, burgerIngredientDetails.ingredient, orderDetails.order]);
+  }, [dispatch, orderDetails.order]);
 
   return createPortal(
     <>

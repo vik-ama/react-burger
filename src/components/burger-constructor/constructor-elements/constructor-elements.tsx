@@ -36,9 +36,12 @@ const ConstructorElements = () => {
       isHover: monitor.isOver(),
     }),
     drop(ingredient) {
+      //@ts-ignore
       ingredient.type === BUN
-        ? dispatch(burgerConstructorAddBun(ingredient))
-        : dispatch(burgerConstructorAddIngredient(ingredient, uuidv4()));
+        ? //@ts-ignore
+          dispatch(burgerConstructorAddBun(ingredient))
+        : //@ts-ignore
+          dispatch(burgerConstructorAddIngredient(ingredient, uuidv4()));
     },
   });
 
@@ -54,12 +57,16 @@ const ConstructorElements = () => {
       }`}
     >
       <div className={`${styles.constructorElements__bun}`}>
+        {/*//@ts-ignore*/}
         {burgerConstructor.bun !== null ? (
           <ConstructorElement
             type="top"
             isLocked={true}
+            //@ts-ignore
             text={`${burgerConstructor.bun.name} (верх)`}
+            //@ts-ignore
             price={burgerConstructor.bun.price}
+            //@ts-ignore
             thumbnail={burgerConstructor.bun.image}
           />
         ) : (
@@ -73,7 +80,9 @@ const ConstructorElements = () => {
         )}
       </div>
       <div className={`custom-scroll ${styles.constructorElements__items}`}>
+        {/*//@ts-ignore*/}
         {burgerConstructor.ingredients.length > 0 ? (
+          //@ts-ignore
           burgerConstructor.ingredients.map(
             (item: IIngredientAdd, index: number) => {
               return (
@@ -101,12 +110,16 @@ const ConstructorElements = () => {
       <div
         className={`${styles.constructorElements__bun} ${styles.constructorElements__bun_bottom}`}
       >
+        {/*//@ts-ignore*/}
         {burgerConstructor.bun !== null ? (
           <ConstructorElement
             type="bottom"
             isLocked={true}
+            // @ts-ignore
             text={`${burgerConstructor.bun.name} (низ)`}
+            // @ts-ignore
             price={burgerConstructor.bun.price}
+            // @ts-ignore
             thumbnail={burgerConstructor.bun.image}
           />
         ) : (

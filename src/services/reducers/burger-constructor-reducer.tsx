@@ -22,7 +22,7 @@ interface IburgerConstructorReducerState {
   bun: IIngredient | null;
 }
 
-interface IburgerConstructorReducerAction {}
+//interface IburgerConstructorReducerAction {}
 
 const burgerConstructorReducer = (state = initialState, action: any) => {
   switch (action.type) {

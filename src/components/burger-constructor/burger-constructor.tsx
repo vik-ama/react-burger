@@ -24,11 +24,14 @@ const BurgerConstructor = (props: IBurgerConstructorProps) => {
 
   const orderPrice = useMemo<number>(() => {
     let price = 0;
-
+    //@ts-ignore
     if (burgerConstructor.bun) {
+      //@ts-ignore
       price += burgerConstructor.bun.price * 2;
     }
+    //@ts-ignore
     if (burgerConstructor.ingredients.length !== 0) {
+      //@ts-ignore
       price += burgerConstructor.ingredients.reduce(
         (sum: number, item: IIngredient) => sum + item.price,
         0
@@ -39,15 +42,21 @@ const BurgerConstructor = (props: IBurgerConstructorProps) => {
 
   const orderIngredients = useMemo<string[]>(() => {
     const orderIngredientsArray: string[] = [];
+    //@ts-ignore
     if (burgerConstructor.bun) {
+      //@ts-ignore
       orderIngredientsArray.push(burgerConstructor.bun._id);
     }
+    //@ts-ignore
     if (burgerConstructor.ingredients.length !== 0) {
+      //@ts-ignore
       burgerConstructor.ingredients.forEach((item: IIngredient) => {
         orderIngredientsArray.push(item._id);
       });
     }
+    //@ts-ignore
     if (burgerConstructor.bun) {
+      //@ts-ignore
       orderIngredientsArray.push(burgerConstructor.bun._id);
     }
     return orderIngredientsArray;

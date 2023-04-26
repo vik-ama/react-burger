@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { ChangeEvent, FC, HTMLProps, useRef, useState } from "react";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
 interface TPasswordInputInterface
-  extends Omit<React.HTMLProps<HTMLInputElement>, "size" | "type" | "ref"> {
+  extends Omit<HTMLProps<HTMLInputElement>, "size" | "type" | "ref"> {
   value: string;
   placeholder?: string;
   size?: "default" | "small";
@@ -13,7 +13,7 @@ interface TPasswordInputInterface
   onChange(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
-export const PasswordInput: React.FC<TPasswordInputInterface> = ({
+export const PasswordInput: FC<TPasswordInputInterface> = ({
   value,
   placeholder = "Пароль",
   onChange,

@@ -1,7 +1,56 @@
 .feed
-    width: 100%
-    height: 100%
+    position: relative
     display: flex
     flex-direction: column
-    justify-content: center
-    align-items: center
+    justify-content: flex-start
+    align-items: flex-start
+    max-width: 1200px
+    width: 100%
+    margin-left: auto
+    margin-right: auto
+    margin-top: 40px
+
+    &__title
+
+    &__block
+        margin-top: 20px
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-items: flex-start
+        width: 100%
+        gap: 60px
+        max-height: calc(100vh - 256px)
+
+    &__list
+        width: 100%
+        height: 100%
+        display: flex
+        flex-direction: column
+        justify-content: flex-start
+        gap: 16px
+        overflow-y: scroll
+        overflow-x: hidden
+
+    &__summary
+        width: 100%
+
+        &_status
+            display: flex
+            flex-direction: row
+            justify-content: space-between
+            align-items: stretch
+            gap: 36px
+
+        &_ready
+            width: 100%
+
+            &_success
+                color: #00CCCC
+
+        &_inwork
+            width: 100%
+
+        &_completedallthetime
+
+        &_completedtoday

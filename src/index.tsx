@@ -1,12 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+
 import "./index.sass";
-import App from "./components/app/app";
 import { Provider } from "react-redux";
 import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
-import { rootReducer } from "./services/reducers";
+
 import { BrowserRouter as Router } from "react-router-dom";
+
+import { rootReducer } from "./services/reducers";
+import App from "./components/app/app";
 
 declare global {
   interface Window {
@@ -18,7 +21,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 
-const store: any = createStore(rootReducer, enhancer);
+export const store = createStore(rootReducer, enhancer);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -33,3 +36,6 @@ root.render(
     </React.StrictMode>
   </Router>
 );
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppDispatch = typeof store.dispatch;

@@ -1,0 +1,102 @@
+.orderInfo
+    background-color: #1C1C21
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04)
+    border-radius: 40px
+    margin-right: 8px
+
+    &__top
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-items: center
+
+        &_number
+
+        &_date
+
+    &__bottom
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-items: center
+
+        &_items
+            display: flex
+            flex-direction: row
+            justify-content: flex-start
+            align-items: center
+
+        &_item
+            width: 64px
+            height: 64px
+            border-radius: 50%
+            overflow: hidden
+            position: relative
+            display: flex
+            flex-direction: column
+            justify-content: center
+            align-items: center
+            background: linear-gradient(90deg, #801AB2, #4C4CFF)
+            margin-left: -16px
+
+            &:first-child
+                margin-left: 0
+
+            &:nth-child(1)
+                z-index: 60
+
+            &:nth-child(2)
+                z-index: 50
+
+            &:nth-child(3)
+                z-index: 40
+
+            &:nth-child(4)
+                z-index: 30
+
+            &:nth-child(5)
+                z-index: 20
+
+            &:nth-child(6)
+                z-index: 10
+
+            & span
+                background-color: #000000
+                width: calc(100% - 4px)
+                height: calc(100% - 4px)
+                border-radius: 50%
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-items: center
+
+                & img
+                    transform: scale(1.8)
+                    width: 100%
+                    height: auto
+                    box-sizing: border-box
+
+
+        &_summ
+            display: flex
+            flex-direction: row
+            justify-content: flex-end
+            align-items: center
+            gap: 8px
+
+            & svg
+                display: block
+
+    &__status
+        &_complete
+            color: #00CCCC
+
+    &__more
+        background: #1C1C21
+        opacity: 0.6
+        position: absolute
+        top: 2px
+        left: 2px
+        width: calc(100% - 4px)
+        height: calc(100% - 4px)
+        border-radius: 50%

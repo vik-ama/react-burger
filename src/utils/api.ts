@@ -10,6 +10,8 @@ export const AUTH_USER = `${NORMA_API}/auth/user`;
 export const PASSWORD_RESET = `${NORMA_API}/password-reset`;
 export const PASSWORD_RESET_RESET = `${NORMA_API}/password-reset/reset`;
 
+export const wsUrl = "wss://norma.nomoreparties.space/orders";
+
 export const checkResponse = (response: Response) => {
   return response.ok
     ? response.json()

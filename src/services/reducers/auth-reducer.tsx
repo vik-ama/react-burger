@@ -17,6 +17,7 @@ import {
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
 } from "../actions/auth-actions";
+import { RootState } from "../../index";
 
 const initialState = {
   user: null,

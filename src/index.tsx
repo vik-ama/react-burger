@@ -10,6 +10,9 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import { rootReducer } from "./services/reducers";
 import App from "./components/app/app";
+import socketMiddleware from "./services/middleware";
+import { socketActions } from "./services/actions/socket-actions";
+import { wsUrl } from "./utils/api";
 
 declare global {
   interface Window {
@@ -19,7 +22,9 @@ declare global {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+const enhancer = composeEnhancers(
+  applyMiddleware(thunk, socketMiddleware(wsUrl, socketActions))
+);
 
 export const store = createStore(rootReducer, enhancer);
 

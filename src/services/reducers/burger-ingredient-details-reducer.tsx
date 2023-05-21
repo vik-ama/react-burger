@@ -4,6 +4,7 @@ import {
   BURGER_INGREDIENT_DETAILS_ADD,
   BURGER_INGREDIENT_DETAILS_REMOVE,
 } from "../actions/burger-ingredient-details-actions";
+import { IIngredient } from "../../utils/types";
 
 const initialState = {
   isLoading: false,

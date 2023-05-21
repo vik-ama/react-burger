@@ -8,21 +8,19 @@ import {
 } from "../actions/burger-constructor-actions";
 import { IIngredient } from "../../utils/types";
 
-const initialState = {
+interface IInitialState {
+  isLoading: boolean;
+  hasError: boolean;
+  ingredients: IIngredient[] | [];
+  bun: IIngredient | null;
+}
+
+const initialState: IInitialState = {
   isLoading: false,
   hasError: false,
   ingredients: [],
   bun: null,
 };
-
-interface IburgerConstructorReducerState {
-  isLoading: boolean;
-  hasError: boolean;
-  ingredients: IIngredient | [];
-  bun: IIngredient | null;
-}
-
-//interface IburgerConstructorReducerAction {}
 
 const burgerConstructorReducer = (state = initialState, action: any) => {
   switch (action.type) {
@@ -54,6 +52,7 @@ const burgerConstructorReducer = (state = initialState, action: any) => {
         ...state,
         isLoading: false,
         ingredients: state.ingredients.filter(
+          //@ts-ignore
           (item) => state.ingredients.indexOf(item) !== action.payload
         ),
       };

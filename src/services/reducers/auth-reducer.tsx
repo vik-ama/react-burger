@@ -16,10 +16,21 @@ import {
   GET_USER_FAILED,
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
+  TAuthActions,
 } from "../actions/auth-actions";
 import { RootState } from "../../index";
 
-const initialState = {
+interface IInitialState {
+  user: {
+    name: string;
+    email: string;
+  } | null;
+  isLoading: boolean;
+  hasError: boolean;
+  isAuthChecked: boolean;
+}
+
+const initialState: IInitialState = {
   user: null,
   isLoading: false,
   hasError: false,

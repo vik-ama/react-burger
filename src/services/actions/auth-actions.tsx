@@ -29,6 +29,93 @@ export const CHANGE_USER_REQUEST = "CHANGE_USER_REQUEST";
 export const CHANGE_USER_SUCCESS = "CHANGE_USER_SUCCESS";
 export const CHANGE_USER_FAILED = "CHANGE_USER_FAILED";
 
+export interface IAuthRegisterRequest {
+  readonly type: typeof AUTH_REGISTER_REQUEST;
+}
+
+export interface IAuthRegisterSuccess {
+  readonly type: typeof AUTH_REGISTER_SUCCESS;
+}
+
+export interface IAuthRegisterFailed {
+  readonly type: typeof AUTH_REGISTER_FAILED;
+}
+
+export interface IAuthLoginRequest {
+  readonly type: typeof AUTH_LOGIN_REQUEST;
+}
+
+export interface IAuthLoginSuccess {
+  readonly type: typeof AUTH_LOGIN_SUCCESS;
+}
+
+export interface IAuthLoginFailed {
+  readonly type: typeof AUTH_LOGIN_FAILED;
+}
+
+export interface IGetUserRequest {
+  readonly type: typeof GET_USER_REQUEST;
+}
+
+export interface IGetUserSuccess {
+  readonly type: typeof GET_USER_SUCCESS;
+}
+
+export interface IGetUserFailed {
+  readonly type: typeof GET_USER_FAILED;
+}
+
+export interface IGetUserClear {
+  readonly type: typeof GET_USER_CLEAR;
+}
+
+export interface IGetUserAuthChecked {
+  readonly type: typeof GET_USER_AUTH_CHECKED;
+}
+
+export interface IAuthLogoutRequest {
+  readonly type: typeof AUTH_LOGOUT_REQUEST;
+}
+
+export interface IAuthLogoutSuccess {
+  readonly type: typeof AUTH_LOGOUT_SUCCESS;
+}
+
+export interface IAuthLogoutFailed {
+  readonly type: typeof AUTH_LOGOUT_FAILED;
+}
+
+export interface IChangeUserRequest {
+  readonly type: typeof CHANGE_USER_REQUEST;
+}
+
+export interface IChangeUserSuccess {
+  readonly type: typeof CHANGE_USER_SUCCESS;
+}
+
+export interface IChangeUserFailed {
+  readonly type: typeof CHANGE_USER_FAILED;
+}
+
+export type TAuthActions =
+  | IAuthRegisterRequest
+  | IAuthRegisterSuccess
+  | IAuthRegisterFailed
+  | IAuthLoginRequest
+  | IAuthLoginSuccess
+  | IAuthLoginFailed
+  | IGetUserRequest
+  | IGetUserSuccess
+  | IGetUserFailed
+  | IGetUserClear
+  | IGetUserAuthChecked
+  | IAuthLogoutRequest
+  | IAuthLogoutSuccess
+  | IAuthLogoutFailed
+  | IChangeUserRequest
+  | IChangeUserSuccess
+  | IChangeUserFailed;
+
 export const sendRegisterForm = (
   name: string,
   email: string,

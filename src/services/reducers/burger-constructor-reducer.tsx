@@ -15,7 +15,7 @@ interface IInitialState {
   bun: IIngredient | null;
 }
 
-const initialState: IInitialState = {
+const initialState = {
   isLoading: false,
   hasError: false,
   ingredients: [],

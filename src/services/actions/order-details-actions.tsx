@@ -8,17 +8,36 @@ export const ORDER_DETAILS_SUCCESS = "ORDER_DETAILS_SUCCESS";
 export const ORDER_DETAILS_FAILED = "ORDER_DETAILS_FAILED";
 export const ORDER_DETAILS_CLEAR = "ORDER_DETAILS_CLEAR";
 
-export const burgerConstructorСheckout = (order: any) => {
+export type TOrderDetailsReducer =
+  | {
+      type: typeof ORDER_DETAILS_REQUEST;
+    }
+  | {
+      type: typeof ORDER_DETAILS_SUCCESS;
+      payload: string[];
+    }
+  | {
+      type: typeof ORDER_DETAILS_CLEAR;
+    }
+  | {
+      type: typeof ORDER_DETAILS_FAILED;
+    };
+
+export const burgerConstructorСheckout = (order: string[]) => {
   return (dispatch: AppDispatch) => {
     dispatch({
       type: ORDER_DETAILS_REQUEST,
     });
 
-    fetch(`${NORMA_API}/orders`, {
+    const token = localStorage.getItem("accessToken");
+    const accessToken = token?.split("Bearer ")[1];
+
+    fetch(`${NORMA_API}/orders?token=${accessToken}`, {
       method: "POST",
       body: JSON.stringify({ ingredients: order }),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `${token}`,
       },
     })
       .then(checkResponse)

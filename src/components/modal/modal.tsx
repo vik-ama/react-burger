@@ -3,7 +3,7 @@ import React, { ReactNode, useEffect } from "react";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { createPortal } from "react-dom";
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { burgerConstructorClear } from "../../services/actions/order-details-actions";
 
@@ -22,23 +22,23 @@ interface IModalProps {
 const Modal = (props: IModalProps) => {
   const { title, children } = props;
 
-  const orderDetails = useAppSelector((state) => state.orderDetails);
+  //const orderDetails = useAppSelector((state) => state.orderDetails);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
+  const location = useLocation();
   const handleCloseModal = () => {
-    if (orderDetails.order !== null) {
-      dispatch(burgerConstructorClear());
-    }
-    navigate("/", { replace: true });
+    // if (orderDetails.order !== null) {
+    //   dispatch(burgerConstructorClear());
+    // }
+    //navigate("/", { replace: true });
+    navigate(`${location.state.backgroundLocation.pathname}`, {
+      replace: true,
+    });
   };
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.keyCode === 27) {
-        if (orderDetails.order !== null) {
-          dispatch(burgerConstructorClear());
-        }
+      if (e.key === "Escape") {
         navigate("/", { replace: true });
       }
     };
@@ -47,7 +47,7 @@ const Modal = (props: IModalProps) => {
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [dispatch, orderDetails.order, navigate]);
+  }, [dispatch, navigate]);
 
   return createPortal(
     <>

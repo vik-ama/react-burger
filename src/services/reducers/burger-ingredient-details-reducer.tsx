@@ -3,16 +3,26 @@ import {
   BURGER_INGREDIENT_DETAILS_FAILED,
   BURGER_INGREDIENT_DETAILS_ADD,
   BURGER_INGREDIENT_DETAILS_REMOVE,
+  TBurgerIngredientDetailsActions,
 } from "../actions/burger-ingredient-details-actions";
 import { IIngredient } from "../../utils/types";
 
-const initialState = {
+interface IInitialState {
+  isLoading: boolean;
+  hasError: boolean;
+  ingredient: IIngredient | null;
+}
+
+const initialState: IInitialState = {
   isLoading: false,
   hasError: false,
   ingredient: null,
 };
 
-const burgerIngredientDetailsReducer = (state = initialState, action: any) => {
+const burgerIngredientDetailsReducer = (
+  state: IInitialState = initialState,
+  action: TBurgerIngredientDetailsActions
+): IInitialState => {
   switch (action.type) {
     case BURGER_INGREDIENT_DETAILS_REQUEST: {
       return {

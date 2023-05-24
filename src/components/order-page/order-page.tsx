@@ -20,6 +20,8 @@ import { CREATED, DONE, PENDING } from "../../pages/feed/feed";
 
 import { IIngredient } from "../../utils/types";
 
+import login from "../../pages/login/login";
+
 import styles from "./order-page.module.sass";
 
 interface IOrderState {
@@ -35,6 +37,7 @@ interface IOrderState {
 const OrderPage = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
+
   const { id } = useParams();
   const [order, setOrder] = useState<IOrderState>({
     createdAt: "",
@@ -48,6 +51,7 @@ const OrderPage = () => {
   const { ingredients, hasError, isLoading } = useAppSelector(
     (state) => state.burgerIngredients
   );
+
   const ordersAll = useAppSelector((state) => state.socket);
   const ordersMy = useAppSelector((state) => state.socketOrders);
   const ordersList =
@@ -115,7 +119,7 @@ const OrderPage = () => {
       {}
     );
     return counts;
-  }, [currentOrder]);
+  }, [currentOrder, orderIngredients]);
 
   const orderSumm = useMemo(() => {
     let totalSumm = 0;

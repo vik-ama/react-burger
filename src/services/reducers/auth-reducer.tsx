@@ -19,12 +19,10 @@ import {
   TAuthActions,
 } from "../actions/auth-actions";
 import { RootState } from "../../index";
+import { IUser } from "../../utils/types";
 
 interface IInitialState {
-  user: {
-    name: string;
-    email: string;
-  } | null;
+  user: IUser | null;
   isLoading: boolean;
   hasError: boolean;
   isAuthChecked: boolean;
@@ -37,7 +35,10 @@ const initialState: IInitialState = {
   isAuthChecked: false,
 };
 
-const authReducer = (state = initialState, action: any) => {
+const authReducer = (
+  state = initialState,
+  action: TAuthActions
+): IInitialState => {
   switch (action.type) {
     case AUTH_REGISTER_REQUEST: {
       return {

@@ -87,7 +87,9 @@ const socketMiddleware = (wsUrl: string, wsActions: IWsActions): Middleware => {
           const { success, ...restParsedData } = parsedData;
 
           if (restParsedData.orders) {
-            restParsedData.orders.sort((a: any, b: any) => b.number - a.number);
+            restParsedData.orders.sort(
+              (a: IOrderInfo, b: IOrderInfo) => b.number - a.number
+            );
             dispatch({
               type: wsGetOrdersMessage,
               payload: restParsedData,

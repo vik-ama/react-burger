@@ -88,11 +88,8 @@ function App(): JSX.Element {
               <Route path="/profile/orders/" element={<ProfileOrders />} />
               <Route path="/profile/orders/:id" element={<OrderPage />} />
             </Route>
-            <Route path="/feed" element={<OnlyAuth component={<Feed />} />} />
-            <Route
-              path="/feed/:id"
-              element={<OnlyAuth component={<OrderPage />} />}
-            />
+            <Route path="/feed" element={<Feed />} />
+            <Route path="/feed/:id" element={<OrderPage />} />
             <Route
               path="/ingredients/:id"
               element={
@@ -112,6 +109,30 @@ function App(): JSX.Element {
                       ingredients={ingredients}
                       isLoading={isLoading}
                     />
+                  </Modal>
+                }
+              />
+            </Routes>
+          )}
+          {state && (
+            <Routes>
+              <Route
+                path="/feed/:id"
+                element={
+                  <Modal title="Детали заказа">
+                    <OrderPage />
+                  </Modal>
+                }
+              />
+            </Routes>
+          )}
+          {state && (
+            <Routes>
+              <Route
+                path="/profile/orders/:id"
+                element={
+                  <Modal title="Детали заказа">
+                    <OrderPage />
                   </Modal>
                 }
               />

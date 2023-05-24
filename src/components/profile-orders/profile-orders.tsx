@@ -20,32 +20,22 @@ const ProfileOrders = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
 
-  const { orders } = useAppSelector((state) => state.socket);
+  const { orders } = useAppSelector((state) => state.socketOrders);
 
-  // надо так
-  // useEffect(() => {
-  //   if (location.pathname === "/profile/orders") {
-  //     dispatch({ type: WS_CONNECTION_ORDERS_START });
-  //   }
-  //   return () => {
-  //     dispatch({ type: WS_CONNECTION_ORDERS_END });
-  //   };
-  // }, [dispatch, location.pathname]);
-  // это для теста
   useEffect(() => {
-    dispatch({
-      type: WS_CONNECTION_START,
-    });
+    if (location.pathname === "/profile/orders") {
+      dispatch({ type: WS_CONNECTION_ORDERS_START });
+    }
     return () => {
-      dispatch({ type: WS_CONNECTION_END });
+      dispatch({ type: WS_CONNECTION_ORDERS_END });
     };
-  }, [dispatch]);
+  }, [dispatch, location.pathname]);
 
   return (
     <div className={`custom-scroll ${styles.profileOrders}`}>
       {orders.map((order) => {
         return (
-          <OrderInfo order={order} key={uuidv4()} path={"/profile/orders"} />
+          <OrderInfo order={order} key={order._id} path={"/profile/orders"} />
         );
       })}
     </div>

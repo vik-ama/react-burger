@@ -5,7 +5,7 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { IIngredient, IOrderInfo } from "../../utils/types";
 
@@ -75,7 +75,12 @@ const OrderInfo = (props: IOrderInfoProps) => {
   }, [orderIngredients]);
 
   return (
-    <div className={`p-6 ${styles.orderInfo}`} onClick={onClick}>
+    <Link
+      to={`${location.pathname}/${order._id}`}
+      state={{ backgroundLocation: location }}
+      className={`p-6 ${styles.orderInfo}`}
+      onClick={onClick}
+    >
       <div className={`${styles.orderInfo__top}`}>
         <div
           className={`text text_type_digits-default ${styles.orderInfo__top_number}`}
@@ -119,7 +124,7 @@ const OrderInfo = (props: IOrderInfoProps) => {
                 </div>
               );
             })}
-          {ingredientsCount > 0 && ingredientsCount > 0 && (
+          {ingredientsCount > 0 && (
             <div className={styles.orderInfo__bottom_item}>
               <span>
                 <img
@@ -142,7 +147,7 @@ const OrderInfo = (props: IOrderInfoProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

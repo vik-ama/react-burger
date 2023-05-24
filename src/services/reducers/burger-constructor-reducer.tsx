@@ -1,3 +1,5 @@
+import { number } from "prop-types";
+
 import {
   BURGER_CONSTRUCTOR_REQUEST,
   BURGER_CONSTRUCTOR_FAILED,
@@ -5,6 +7,7 @@ import {
   BURGER_CONSTRUCTOR_ADD_INGREDIENT,
   BURGER_CONSTRUCTOR_REMOVE_INGREDIENT,
   BURGER_CONSTRUCTOR_CHANGE_INGREDIENT,
+  TBurgerConstructorActions,
 } from "../actions/burger-constructor-actions";
 import { IIngredient } from "../../utils/types";
 
@@ -15,14 +18,17 @@ interface IInitialState {
   bun: IIngredient | null;
 }
 
-const initialState = {
+const initialState: IInitialState = {
   isLoading: false,
   hasError: false,
   ingredients: [],
   bun: null,
 };
 
-const burgerConstructorReducer = (state = initialState, action: any) => {
+const burgerConstructorReducer = (
+  state = initialState,
+  action: TBurgerConstructorActions
+): IInitialState => {
   switch (action.type) {
     case BURGER_CONSTRUCTOR_REQUEST: {
       return {
@@ -52,7 +58,6 @@ const burgerConstructorReducer = (state = initialState, action: any) => {
         ...state,
         isLoading: false,
         ingredients: state.ingredients.filter(
-          //@ts-ignore
           (item) => state.ingredients.indexOf(item) !== action.payload
         ),
       };

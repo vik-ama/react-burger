@@ -9,6 +9,12 @@ export const BURGER_INGREDIENT_DETAILS_REMOVE =
 export const BURGER_INGREDIENT_DETAILS_FAILED =
   "BURGER_INGREDIENT_DETAILS_FAILED";
 
+export type TBurgerIngredientDetailsActions =
+  | { type: typeof BURGER_INGREDIENT_DETAILS_REQUEST }
+  | { type: typeof BURGER_INGREDIENT_DETAILS_ADD; payload: IIngredient | null }
+  | { type: typeof BURGER_INGREDIENT_DETAILS_REMOVE }
+  | { type: typeof BURGER_INGREDIENT_DETAILS_FAILED };
+
 export const addBurgerIngredientDetails = (ingredient: IIngredient) => {
   return (dispatch: AppDispatch): void => {
     dispatch({

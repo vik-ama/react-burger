@@ -79,9 +79,13 @@ const Feed = () => {
       </div>
       <div className={styles.feed__block}>
         <div className={`custom-scroll ${styles.feed__list}`}>
-          {orders.map((order) => {
-            return <OrderInfo order={order} key={uuidv4()} path={"/feed"} />;
-          })}
+          {orders.length > 0
+            ? orders.map((order) => {
+                return (
+                  <OrderInfo order={order} key={uuidv4()} path={"/feed"} />
+                );
+              })
+            : "Загрузка..."}
         </div>
         <div className={styles.feed__summary}>
           <div className={styles.feed__summary_status}>

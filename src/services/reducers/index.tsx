@@ -4,7 +4,6 @@ import burgerIngredientsReducer from "./burger-ingredients-reducer";
 import burgerConstructorReducer from "./burger-constructor-reducer";
 import orderDetailsReducer from "./order-details-reducer";
 import burgerIngredientDetailsReducer from "./burger-ingredient-details-reducer";
-import modalReducer from "./modal-reducer";
 import authReducer from "./auth-reducer";
 import socketReducer from "./socket-reducer";
 import socketOrdersReducer from "./socket-orders-reducer";
@@ -16,7 +15,6 @@ export const rootReducer = combineReducers({
   burgerConstructor: burgerConstructorReducer,
   orderDetails: orderDetailsReducer,
   burgerIngredientDetails: burgerIngredientDetailsReducer,
-  modal: modalReducer,
   auth: authReducer,
   socket: socketReducer,
   socketOrders: socketOrdersReducer,

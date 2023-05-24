@@ -31,6 +31,8 @@ export const refreshToken = () => {
 };
 
 export const fetchWithRefresh = async (url: string, options: any) => {
+  console.log("fetchWithRefresh");
+  console.log(url, options);
   try {
     const response = await fetch(url, options);
     return await checkResponse(response);
@@ -51,7 +53,11 @@ export const fetchWithRefresh = async (url: string, options: any) => {
   }
 };
 
-export const setUser = (form: any) => {
+export const setUser = (form: {
+  email: string;
+  name: string;
+  password: string;
+}) => {
   return fetchWithRefresh(AUTH_USER, {
     method: "PATCH",
     headers: {
@@ -98,7 +104,7 @@ export const authRegister = (name: string, email: string, password: string) => {
     });
 };
 
-export const authLogin = (values: any) => {
+export const authLogin = (values: { email: string; password: string }) => {
   return fetch(AUTH_LOGIN, {
     method: "POST",
     mode: "cors",
@@ -117,7 +123,7 @@ export const authLogin = (values: any) => {
     });
 };
 
-export const passwordReset = (values: any) => {
+export const passwordReset = (values: { email: string }) => {
   return fetch(PASSWORD_RESET, {
     method: "POST",
     mode: "cors",
@@ -132,7 +138,7 @@ export const passwordReset = (values: any) => {
   }).then(checkResponse);
 };
 
-export const passwordChange = (values: any) => {
+export const passwordChange = (values: { password: string; token: string }) => {
   return fetch(PASSWORD_RESET_RESET, {
     method: "POST",
     mode: "cors",

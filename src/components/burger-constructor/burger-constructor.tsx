@@ -28,9 +28,8 @@ const BurgerConstructor = (props: IBurgerConstructorProps) => {
       price += burgerConstructor.bun.price * 2;
     }
     if (burgerConstructor.ingredients.length !== 0) {
-      //@ts-ignore
       price += burgerConstructor.ingredients.reduce(
-        (sum: number, item: IIngredient) => sum + item.price,
+        (sum, item) => sum + item.price,
         0
       );
     }
@@ -55,13 +54,10 @@ const BurgerConstructor = (props: IBurgerConstructorProps) => {
 
   return (
     <section className={`mt-25 ${styles.burgerConstructor}`}>
-      {/*//@ts-ignore*/}
       {orderDetails.order !== null && orderDetails.order.success && (
         <Modal>
           <ConstructorDetails
-            //@ts-ignore
             orderNumber={orderDetails.order.order.number}
-            //@ts-ignore
             orderName={orderDetails.order.name}
           />
         </Modal>

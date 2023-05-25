@@ -48,15 +48,18 @@ const OrderInfo = (props: IOrderInfoProps) => {
     }
   };
 
-  //@ts-ignore
   const orderIngredients: IIngredient[] = useMemo(() => {
+    const isIngredient = (
+      ingredient: IIngredient | undefined
+    ): ingredient is IIngredient => ingredient !== undefined;
+
     return order.ingredients
       .map((id) => {
         return ingredients.find(
           (ingredient: IIngredient) => ingredient._id === id
         );
       })
-      .filter((ingredient) => ingredient);
+      .filter(isIngredient);
   }, [ingredients, order]);
 
   const ingredientsUnique = useMemo(() => {

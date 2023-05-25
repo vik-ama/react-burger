@@ -5,23 +5,45 @@ import {
   ORDER_DETAILS_CLEAR,
   TOrderDetailsReducer,
 } from "../actions/order-details-actions";
+import { IIngredient } from "../../utils/types";
 
-interface IInitialState {
-  isLoading: boolean;
-  hasError: boolean;
-  order: string[] | null;
+export interface IOrderDetailsReducerOrder {
+  success: boolean;
+  name: string;
+  order: {
+    ingredients: IIngredient[];
+    _id: string;
+    owner: {
+      name: string;
+      email: string;
+      createdAt: string;
+      updatedAt: string;
+    };
+    name: string;
+    status: string;
+    createdAt: string;
+    updatedAt: string;
+    number: number;
+    price: number;
+  };
 }
 
-const initialState: IInitialState = {
+export interface IOrderDetailsReducer {
+  isLoading: boolean;
+  hasError: boolean;
+  order: IOrderDetailsReducerOrder | null;
+}
+
+const initialState: IOrderDetailsReducer = {
   isLoading: false,
   hasError: false,
   order: null,
 };
 
 const orderDetailsReducer = (
-  state: IInitialState = initialState,
+  state = initialState,
   action: TOrderDetailsReducer
-): IInitialState => {
+): IOrderDetailsReducer => {
   switch (action.type) {
     case ORDER_DETAILS_REQUEST: {
       return {

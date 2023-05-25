@@ -22,31 +22,27 @@ import { BUN } from "../../burger-ingredients/burger-ingredients";
 
 import styles from "./constructor-elements.module.sass";
 
-interface IIngredientAdd extends IIngredient {
-  uuid: string;
-}
-
 const ConstructorElements = () => {
   const dispatch = useAppDispatch();
   const burgerConstructor = useAppSelector((state) => state.burgerConstructor);
 
-  const [{ isHover }, dropRef] = useDrop({
+  const [{ isHover }, dropRef] = useDrop<
+    IIngredient,
+    void,
+    { isHover: boolean | null }
+  >({
     accept: "ingredient",
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
     drop(ingredient) {
-      //@ts-ignore
       ingredient.type === BUN
-        ? //@ts-ignore
-          dispatch(burgerConstructorAddBun(ingredient))
-        : //@ts-ignore
-          dispatch(burgerConstructorAddIngredient(ingredient, uuidv4()));
+        ? dispatch(burgerConstructorAddBun(ingredient))
+        : dispatch(burgerConstructorAddIngredient(ingredient, uuidv4()));
     },
   });
 
   const moveIngredient = (dragIndex: number, hoverIndex: number) => {
-    //@ts-ignore
     dispatch(burgerConstructorChangeIngredient(dragIndex, hoverIndex));
   };
 
@@ -78,20 +74,17 @@ const ConstructorElements = () => {
       </div>
       <div className={`custom-scroll ${styles.constructorElements__items}`}>
         {burgerConstructor.ingredients.length > 0 ? (
-          burgerConstructor.ingredients.map(
-            //@ts-ignore
-            (item: IIngredientAdd, index: number) => {
-              return (
-                <ConstructorItem
-                  key={item.uuid}
-                  item={item}
-                  index={index}
-                  id={item.uuid}
-                  moveIngredient={moveIngredient}
-                />
-              );
-            }
-          )
+          burgerConstructor.ingredients.map((item, index) => {
+            return (
+              <ConstructorItem
+                key={item.uuid}
+                item={item}
+                index={index}
+                id={item.uuid}
+                moveIngredient={moveIngredient}
+              />
+            );
+          })
         ) : (
           <div className={styles.constructorElements__default}>
             <div className={styles.constructorElements__default_icon}>

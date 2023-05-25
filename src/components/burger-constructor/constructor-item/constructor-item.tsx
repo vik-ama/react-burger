@@ -33,7 +33,6 @@ const ConstructorItem = (props: IConstructorItemProps) => {
 
   const dispatch = useAppDispatch();
   const handlerRemoveInrgedient = (index: number) => {
-    //@ts-ignore
     dispatch(burgerConstructorRemoveIngredient(index));
   };
 

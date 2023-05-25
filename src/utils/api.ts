@@ -30,19 +30,25 @@ export const refreshToken = () => {
   }).then(checkResponse);
 };
 
-export const fetchWithRefresh = async (url: string, options: any) => {
+export const fetchWithRefresh = async (url: string, options: RequestInit) => {
   try {
     const response = await fetch(url, options);
     return await checkResponse(response);
-  } catch (error: any) {
-    if (error.message === "jwt expired") {
+  } catch (error) {
+    if ((error as Error).message === "jwt expired") {
       const refreshData = await refreshToken();
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
       localStorage.setItem("refreshToken", refreshData.refreshToken);
       localStorage.setItem("accessToken", refreshData.accessToken);
-      options.headers.authorization = refreshData.accessToken;
+      options = {
+        ...options,
+        headers: {
+          ...options?.headers,
+          authorization: refreshData.accessToken,
+        },
+      };
       const response = await fetch(url, options);
       return await checkResponse(response);
     } else {
@@ -58,9 +64,12 @@ export const setUser = (form: {
 }) => {
   return fetchWithRefresh(AUTH_USER, {
     method: "PATCH",
+    // headers: new Headers({
+    //     ""
+    // })
     headers: {
       "Content-Type": "application/json",
-      authorization: localStorage.getItem("accessToken"),
+      authorization: localStorage.getItem("accessToken") || "",
     },
     body: JSON.stringify(form),
   });
@@ -70,7 +79,7 @@ export const getUser = () => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authorization: localStorage.getItem("accessToken"),
+      authorization: localStorage.getItem("accessToken") || "",
     },
   });
 };
@@ -79,7 +88,7 @@ export const getIngredients = () => {
   return fetch(INGREDIENTS)
     .then(checkResponse)
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 };
 
@@ -98,7 +107,7 @@ export const authRegister = (name: string, email: string, password: string) => {
   })
     .then(checkResponse)
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 };
 
@@ -117,7 +126,7 @@ export const authLogin = (values: { email: string; password: string }) => {
   })
     .then(checkResponse)
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 };
 
@@ -151,7 +160,7 @@ export const passwordChange = (values: { password: string; token: string }) => {
   })
     .then(checkResponse)
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 };
 
@@ -170,6 +179,6 @@ export const authLogout = () => {
   })
     .then(checkResponse)
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 };

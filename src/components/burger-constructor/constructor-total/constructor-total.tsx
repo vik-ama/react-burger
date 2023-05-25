@@ -27,7 +27,6 @@ const ConstructorTotal = (props: IConstructorTotalProps) => {
 
   const handleOpenModal = () => {
     if (user !== null) {
-      //@ts-ignore
       dispatch(burgerConstructorСheckout(orderIngredients));
     } else {
       navigate("/login", { replace: true });

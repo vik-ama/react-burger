@@ -115,10 +115,7 @@ export const sendRegisterForm = (
   };
 };
 
-export const sendLoginForm = (
-  values: { email: string; password: string },
-  onSuccess: any
-) => {
+export const sendLoginForm = (values: { email: string; password: string }) => {
   return (dispatch: AppDispatch) => {
     dispatch({
       type: AUTH_LOGIN_REQUEST,
@@ -132,7 +129,6 @@ export const sendLoginForm = (
           });
           localStorage.setItem("accessToken", response.accessToken);
           localStorage.setItem("refreshToken", response.refreshToken);
-          onSuccess();
         }
       })
       .catch(() => {
@@ -144,16 +140,17 @@ export const sendLoginForm = (
 };
 
 export const getUserAction = () => {
-  return async (dispatch: AppDispatch) => {
+  return (dispatch: AppDispatch) => {
     dispatch({
       type: GET_USER_REQUEST,
     });
-    return await getUser()
+    return getUser()
       .then((response) => {
         dispatch({
           type: GET_USER_SUCCESS,
           payload: response.user,
         });
+        return response;
       })
       .catch(() => {
         dispatch({
@@ -169,7 +166,6 @@ export const checkUserAuth = () => {
       type: GET_USER_REQUEST,
     });
     if (localStorage.getItem("accessToken")) {
-      //@ts-ignore
       dispatch(getUserAction())
         //@ts-ignore
         .catch(() => {

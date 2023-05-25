@@ -1,5 +1,6 @@
 import { checkResponse, NORMA_API } from "../../utils/api";
 import { AppDispatch } from "../../index";
+import { IOrderDetailsReducerOrder } from "../reducers/order-details-reducer";
 
 export const ORDER_DETAILS_REQUEST = "ORDER_DETAILS_REQUEST";
 
@@ -14,7 +15,7 @@ export type TOrderDetailsReducer =
     }
   | {
       type: typeof ORDER_DETAILS_SUCCESS;
-      payload: string[];
+      payload: IOrderDetailsReducerOrder;
     }
   | {
       type: typeof ORDER_DETAILS_CLEAR;

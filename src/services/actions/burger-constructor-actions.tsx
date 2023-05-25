@@ -23,10 +23,10 @@ export type TBurgerConstructorActions =
   | { type: typeof BURGER_CONSTRUCTOR_ADD_BUN; payload: IIngredient | null }
   | {
       type: typeof BURGER_CONSTRUCTOR_ADD_INGREDIENT;
-      payload: IIngredient[] | [];
+      payload: IIngredient;
       uuid: string;
     }
-  | { type: typeof BURGER_CONSTRUCTOR_REMOVE_INGREDIENT; payload: any }
+  | { type: typeof BURGER_CONSTRUCTOR_REMOVE_INGREDIENT; payload: number }
   | {
       type: typeof BURGER_CONSTRUCTOR_CHANGE_INGREDIENT;
       payload: { dragIndex: number; hoverIndex: number };
@@ -49,14 +49,12 @@ export const burgerConstructorAddIngredient = (
   ingredient: IIngredient,
   uuid: string
 ) => {
-  //console.log(ingredient, uuid);
   return (dispatch: AppDispatch) => {
     dispatch({
       type: BURGER_CONSTRUCTOR_REQUEST,
     });
     dispatch({
       type: BURGER_CONSTRUCTOR_ADD_INGREDIENT,
-      //@ts-ignore
       payload: { ...ingredient },
       uuid: uuid,
     });

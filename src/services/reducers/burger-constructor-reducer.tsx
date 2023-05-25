@@ -1,5 +1,3 @@
-import { number } from "prop-types";
-
 import {
   BURGER_CONSTRUCTOR_REQUEST,
   BURGER_CONSTRUCTOR_FAILED,
@@ -11,17 +9,21 @@ import {
 } from "../actions/burger-constructor-actions";
 import { IIngredient } from "../../utils/types";
 
+interface IIngredientAdd extends IIngredient {
+  uuid: string;
+}
+
 interface IInitialState {
   isLoading: boolean;
   hasError: boolean;
-  ingredients: IIngredient[] | [];
+  ingredients: IIngredientAdd[];
   bun: IIngredient | null;
 }
 
 const initialState: IInitialState = {
   isLoading: false,
   hasError: false,
-  ingredients: [],
+  ingredients: [] as IIngredientAdd[],
   bun: null,
 };
 
@@ -49,7 +51,6 @@ const burgerConstructorReducer = (
         isLoading: false,
         ingredients: [
           ...state.ingredients,
-          //@ts-ignore
           { ...action.payload, uuid: action.uuid },
         ],
       };
@@ -59,7 +60,6 @@ const burgerConstructorReducer = (
         ...state,
         isLoading: false,
         ingredients: state.ingredients.filter(
-          //@ts-ignore
           (item) => state.ingredients.indexOf(item) !== action.payload
         ),
       };

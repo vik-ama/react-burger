@@ -1,5 +1,3 @@
-import React from "react";
-
 import { IOrderInfo } from "../../utils/types";
 import {
   TWsConnectActions,

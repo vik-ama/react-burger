@@ -11,8 +11,7 @@ import {
   WS_CONNECTION_START,
 } from "../../services/actions/socket-actions";
 
-import { IIngredient } from "../../utils/types";
-import { BUN } from "../../components/burger-ingredients/burger-ingredients";
+import { wsUrl } from "../../utils/api";
 
 import styles from "./feed.module.sass";
 
@@ -66,9 +65,10 @@ const Feed = () => {
   useEffect(() => {
     dispatch({
       type: WS_CONNECTION_START,
+      payload: `${wsUrl}/all`,
     });
     return () => {
-      dispatch({ type: WS_CONNECTION_END });
+      dispatch({ type: WS_CONNECTION_END, payload: "disconnect" });
     };
   }, [dispatch]);
 

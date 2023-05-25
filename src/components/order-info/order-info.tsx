@@ -48,6 +48,7 @@ const OrderInfo = (props: IOrderInfoProps) => {
     }
   };
 
+  //@ts-ignore
   const orderIngredients: IIngredient[] = useMemo(() => {
     return order.ingredients
       .map((id) => {

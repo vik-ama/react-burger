@@ -13,6 +13,7 @@ const Profile = () => {
 
   const handleLogout = (e: SyntheticEvent) => {
     e.preventDefault();
+    //@ts-ignore
     dispatch(logoutUser());
   };
 

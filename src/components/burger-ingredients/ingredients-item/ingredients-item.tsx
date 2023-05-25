@@ -27,6 +27,7 @@ const IngredientsItem = (props: IIngredientsItemProps): JSX.Element => {
   const location = useLocation();
 
   const handleOpenModal = (ingredient: IIngredient): void => {
+    //@ts-ignore
     dispatch(addBurgerIngredientDetails(ingredient));
   };
 
@@ -80,8 +81,10 @@ const IngredientsItem = (props: IIngredientsItemProps): JSX.Element => {
       </div>
       <div className={`${styles.ingredientsItem__name}`}>{ingredient.name}</div>
 
+      {/*//@ts-ignore*/}
       {count > 0 && (
         <div className={`${styles.ingredientsItem__count}`}>
+          {/*//@ts-ignore*/}
           <Counter count={count} size="default" extraClass="m-1" />
         </div>
       )}

@@ -14,6 +14,8 @@ import {
   WS_CONNECTION_START,
 } from "../../services/actions/socket-actions";
 
+import { wsUrl } from "../../utils/api";
+
 import styles from "./profile-orders.module.sass";
 
 const ProfileOrders = () => {
@@ -23,13 +25,19 @@ const ProfileOrders = () => {
   const { orders } = useAppSelector((state) => state.socketOrders);
 
   useEffect(() => {
-    if (location.pathname === "/profile/orders") {
-      dispatch({ type: WS_CONNECTION_ORDERS_START });
-    }
+    const token = localStorage.getItem("accessToken");
+    const accessToken = token?.split("Bearer ")[1];
+    dispatch({
+      type: WS_CONNECTION_ORDERS_START,
+      payload: `${wsUrl}?token=${accessToken}`,
+    });
     return () => {
-      dispatch({ type: WS_CONNECTION_ORDERS_END });
+      dispatch({
+        type: WS_CONNECTION_ORDERS_END,
+        payload: "disconnect",
+      });
     };
-  }, [dispatch, location.pathname]);
+  }, [dispatch]);
 
   return (
     <div className={`custom-scroll ${styles.profileOrders}`}>

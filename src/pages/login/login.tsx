@@ -26,6 +26,7 @@ const Login = () => {
       values.password !== "" &&
       values.password.length > 0
     ) {
+      //@ts-ignore
       dispatch(sendLoginForm(values, { onSuccess: () => navigate("/") }));
     }
   };

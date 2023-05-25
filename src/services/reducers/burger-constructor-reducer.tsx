@@ -49,6 +49,7 @@ const burgerConstructorReducer = (
         isLoading: false,
         ingredients: [
           ...state.ingredients,
+          //@ts-ignore
           { ...action.payload, uuid: action.uuid },
         ],
       };
@@ -58,6 +59,7 @@ const burgerConstructorReducer = (
         ...state,
         isLoading: false,
         ingredients: state.ingredients.filter(
+          //@ts-ignore
           (item) => state.ingredients.indexOf(item) !== action.payload
         ),
       };

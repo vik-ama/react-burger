@@ -56,6 +56,7 @@ export const burgerConstructorAddIngredient = (
     });
     dispatch({
       type: BURGER_CONSTRUCTOR_ADD_INGREDIENT,
+      //@ts-ignore
       payload: { ...ingredient },
       uuid: uuid,
     });

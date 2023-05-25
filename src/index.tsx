@@ -4,15 +4,24 @@ import ReactDOM from "react-dom/client";
 import "./index.sass";
 import { Provider } from "react-redux";
 import { applyMiddleware, compose, createStore } from "redux";
-import thunk from "redux-thunk";
+// eslint-disable-next-line import/named
+import thunk, { ThunkAction } from "redux-thunk";
 
 import { BrowserRouter as Router } from "react-router-dom";
 
 import { rootReducer } from "./services/reducers";
 import App from "./components/app/app";
 import socketMiddleware from "./services/middleware";
-import { socketActions } from "./services/actions/socket-actions";
-import { wsUrl } from "./utils/api";
+import {
+  socketFeedActions,
+  socketFeedOrdersActions,
+  TWsConnectActions,
+} from "./services/actions/socket-actions";
+import { TAuthActions } from "./services/actions/auth-actions";
+import { TBurgerConstructorActions } from "./services/actions/burger-constructor-actions";
+import { TBurgerIngredientDetailsActions } from "./services/actions/burger-ingredient-details-actions";
+import { TBurgerIngredientsActions } from "./services/actions/burger-ingredients-actions";
+import { TOrderDetailsReducer } from "./services/actions/order-details-actions";
 
 declare global {
   interface Window {
@@ -23,7 +32,11 @@ declare global {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk, socketMiddleware(wsUrl, socketActions))
+  applyMiddleware(
+    thunk,
+    socketMiddleware(socketFeedActions),
+    socketMiddleware(socketFeedOrdersActions)
+  )
 );
 
 export const store = createStore(rootReducer, enhancer);
@@ -43,4 +56,19 @@ root.render(
 );
 
 export type RootState = ReturnType<typeof rootReducer>;
-export type AppDispatch = typeof store.dispatch;
+export type AppActions =
+  | TAuthActions
+  | TBurgerConstructorActions
+  | TBurgerIngredientDetailsActions
+  | TBurgerIngredientsActions
+  | TOrderDetailsReducer
+  | TWsConnectActions;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  AppActions
+>;
+export type AppDispatch<TReturnType = void> = (
+  action: AppActions | AppThunk<TReturnType>
+) => TReturnType;

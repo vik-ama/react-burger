@@ -169,7 +169,9 @@ export const checkUserAuth = () => {
       type: GET_USER_REQUEST,
     });
     if (localStorage.getItem("accessToken")) {
+      //@ts-ignore
       dispatch(getUserAction())
+        //@ts-ignore
         .catch(() => {
           localStorage.removeItem("accessToken");
           localStorage.removeItem("refreshToken");

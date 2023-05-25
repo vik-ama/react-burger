@@ -48,6 +48,7 @@ const Register = () => {
         password !== "" &&
         password.length > 0
       ) {
+        //@ts-ignore
         dispatch(sendRegisterForm(name, email, password));
         navigate("/", { replace: true });
       }

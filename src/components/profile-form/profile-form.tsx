@@ -16,13 +16,17 @@ const ProfileForm = () => {
   const { user } = useAppSelector((state) => state.auth);
 
   const { values, setValues, handleChange } = useForm({
+    //@ts-ignore
     name: user.name,
+    //@ts-ignore
     email: user.email,
     password: "*****",
   });
 
   const defaultValues = {
+    //@ts-ignore
     name: user.name,
+    //@ts-ignore
     email: user.email,
     password: "*****",
   };
@@ -34,6 +38,7 @@ const ProfileForm = () => {
 
   const handleSubmitForm = (e: SyntheticEvent) => {
     e.preventDefault();
+    //@ts-ignore
     dispatch(changeUser(values));
   };
 
@@ -63,7 +68,9 @@ const ProfileForm = () => {
           placeholder="Пароль"
           extraClass="mt-6"
         />
+        {/*//@ts-ignore*/}
         {(values.name !== user.name ||
+          //@ts-ignore
           values.email !== user.email ||
           (values.password !== "*****" && values.password.length > 0)) && (
           <div className={`mt-6 ${styles.profile__buttons}`}>

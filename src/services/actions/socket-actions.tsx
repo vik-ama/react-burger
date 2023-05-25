@@ -19,6 +19,7 @@ export const WS_CONNECTION_ORDERS_END = "WS_CONNECTION_ORDERS_END";
 
 export interface IWSConnectionStart {
   readonly type: typeof WS_CONNECTION_START;
+  payload: string;
 }
 
 export interface IWsConnectionSuccess {
@@ -44,10 +45,12 @@ export interface IWsSendMessage {
 
 export interface IWsConnectionEnd {
   readonly type: typeof WS_CONNECTION_END;
+  payload: string;
 }
 
 export interface IWsConnectionOrdersStart {
   readonly type: typeof WS_CONNECTION_ORDERS_START;
+  payload: string;
 }
 
 export interface IWsConnectionOrdersSuccess {
@@ -73,6 +76,7 @@ export interface IWsSendOrdersMessage {
 
 export interface IWsConnectionOrdersEnd {
   readonly type: typeof WS_CONNECTION_ORDERS_END;
+  payload: string;
 }
 
 export type TWsConnectActions =
@@ -108,19 +112,37 @@ export interface IWsActions {
   readonly wsConnectionOrdersEnd: typeof WS_CONNECTION_ORDERS_END;
 }
 
-export const socketActions: IWsActions = {
+export interface ISocketFeedActions {
+  readonly wsConnectionStart: typeof WS_CONNECTION_START;
+  readonly wsConnectionSuccess: typeof WS_CONNECTION_SUCCESS;
+  readonly wsConnectionError: typeof WS_CONNECTION_ERROR;
+  readonly wsConnectionClosed: typeof WS_CONNECTION_CLOSED;
+  readonly wsConnectionEnd: typeof WS_CONNECTION_END;
+  readonly wsGetMessage: typeof WS_GET_MESSAGE;
+}
+
+export interface ISocketFeedOrdersActions {
+  readonly wsConnectionStart: typeof WS_CONNECTION_ORDERS_START;
+  readonly wsConnectionSuccess: typeof WS_CONNECTION_ORDERS_SUCCESS;
+  readonly wsConnectionError: typeof WS_CONNECTION_ORDERS_ERROR;
+  readonly wsConnectionClosed: typeof WS_CONNECTION_ORDERS_CLOSED;
+  readonly wsConnectionEnd: typeof WS_CONNECTION_ORDERS_END;
+  readonly wsGetMessage: typeof WS_GET_ORDERS_MESSAGE;
+}
+
+export const socketFeedActions: ISocketFeedActions = {
   wsConnectionStart: WS_CONNECTION_START,
   wsConnectionSuccess: WS_CONNECTION_SUCCESS,
   wsConnectionError: WS_CONNECTION_ERROR,
-  wsGetMessage: WS_GET_MESSAGE,
   wsConnectionClosed: WS_CONNECTION_CLOSED,
-  wsSendMessage: WS_SEND_MESSAGE,
   wsConnectionEnd: WS_CONNECTION_END,
-  wsConnectionOrdersStart: WS_CONNECTION_ORDERS_START,
-  wsConnectionOrdersSuccess: WS_CONNECTION_ORDERS_SUCCESS,
-  wsConnectionOrdersError: WS_CONNECTION_ORDERS_ERROR,
-  wsGetOrdersMessage: WS_GET_ORDERS_MESSAGE,
-  wsConnectionOrdersClosed: WS_CONNECTION_ORDERS_CLOSED,
-  wsSendOrdersMessage: WS_SEND_ORDERS_MESSAGE,
-  wsConnectionOrdersEnd: WS_CONNECTION_ORDERS_END,
+  wsGetMessage: WS_GET_MESSAGE,
+};
+export const socketFeedOrdersActions: ISocketFeedOrdersActions = {
+  wsConnectionStart: WS_CONNECTION_ORDERS_START,
+  wsConnectionSuccess: WS_CONNECTION_ORDERS_SUCCESS,
+  wsConnectionError: WS_CONNECTION_ORDERS_ERROR,
+  wsConnectionClosed: WS_CONNECTION_ORDERS_CLOSED,
+  wsConnectionEnd: WS_CONNECTION_ORDERS_END,
+  wsGetMessage: WS_GET_ORDERS_MESSAGE,
 };

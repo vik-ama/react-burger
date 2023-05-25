@@ -20,7 +20,7 @@ import { CREATED, DONE, PENDING } from "../../pages/feed/feed";
 
 import { IIngredient } from "../../utils/types";
 
-import login from "../../pages/login/login";
+import { wsUrl } from "../../utils/api";
 
 import styles from "./order-page.module.sass";
 
@@ -91,6 +91,7 @@ const OrderPage = () => {
     }
   };
 
+  //@ts-ignore
   const orderIngredients: IIngredient[] = useMemo(() => {
     return order.ingredients
       .map((id) => {
@@ -135,9 +136,10 @@ const OrderPage = () => {
   useEffect(() => {
     dispatch({
       type: WS_CONNECTION_START,
+      payload: `${wsUrl}/orders/all`,
     });
     return () => {
-      dispatch({ type: WS_CONNECTION_END });
+      dispatch({ type: WS_CONNECTION_END, payload: "disconnect" });
     };
   }, [dispatch]);
 

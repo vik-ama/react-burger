@@ -1,10 +1,16 @@
 // eslint-disable-next-line import/named
 import { Middleware } from "redux";
 
-import { IWsActions } from "../actions/socket-actions";
+import {
+  ISocketFeedActions,
+  ISocketFeedOrdersActions,
+} from "../actions/socket-actions";
+import { RootState } from "../../index";
 import { IOrderInfo } from "../../utils/types";
 
-const socketMiddleware = (wsUrl: string, wsActions: IWsActions): Middleware => {
+const socketMiddleware = (
+  wsActions: ISocketFeedActions | ISocketFeedOrdersActions
+): Middleware<RootState> => {
   return (store) => {
     let socket: WebSocket | null = null;
 
@@ -13,24 +19,14 @@ const socketMiddleware = (wsUrl: string, wsActions: IWsActions): Middleware => {
       const { type } = action;
       const {
         wsConnectionClosed,
-        wsConnectionOrdersError,
         wsConnectionError,
-        wsConnectionOrdersStart,
-        wsConnectionOrdersSuccess,
         wsConnectionStart,
         wsConnectionSuccess,
-        wsGetOrdersMessage,
         wsGetMessage,
       } = wsActions;
 
       if (type === wsConnectionStart) {
-        socket = new WebSocket(`${wsUrl}/all`);
-      } else {
-        const token = localStorage.getItem("accessToken");
-        if (type === wsConnectionOrdersStart && token) {
-          const accessToken = token.split("Bearer ")[1];
-          socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
-        }
+        socket = new WebSocket(action.payload);
       }
 
       if (socket && type === wsConnectionStart) {
@@ -63,42 +59,6 @@ const socketMiddleware = (wsUrl: string, wsActions: IWsActions): Middleware => {
         socket.onclose = (event) => {
           dispatch({
             type: wsConnectionClosed,
-            payload: event,
-          });
-        };
-      }
-
-      if (socket && type === wsConnectionOrdersStart) {
-        socket.onopen = (event) => {
-          dispatch({
-            type: wsConnectionOrdersSuccess,
-            payload: event,
-          });
-        };
-        socket.onerror = (event) => {
-          dispatch({
-            type: wsConnectionOrdersError,
-            payload: event,
-          });
-        };
-        socket.onmessage = (event) => {
-          const { data } = event;
-          const parsedData = JSON.parse(data);
-          const { success, ...restParsedData } = parsedData;
-
-          if (restParsedData.orders) {
-            restParsedData.orders.sort(
-              (a: IOrderInfo, b: IOrderInfo) => b.number - a.number
-            );
-            dispatch({
-              type: wsGetOrdersMessage,
-              payload: restParsedData,
-            });
-          }
-        };
-        socket.onclose = (event) => {
-          dispatch({
-            type: wsConnectionOrdersError,
             payload: event,
           });
         };

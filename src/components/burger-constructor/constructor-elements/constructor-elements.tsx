@@ -36,13 +36,17 @@ const ConstructorElements = () => {
       isHover: monitor.isOver(),
     }),
     drop(ingredient) {
+      //@ts-ignore
       ingredient.type === BUN
-        ? dispatch(burgerConstructorAddBun(ingredient))
-        : dispatch(burgerConstructorAddIngredient(ingredient, uuidv4()));
+        ? //@ts-ignore
+          dispatch(burgerConstructorAddBun(ingredient))
+        : //@ts-ignore
+          dispatch(burgerConstructorAddIngredient(ingredient, uuidv4()));
     },
   });
 
   const moveIngredient = (dragIndex: number, hoverIndex: number) => {
+    //@ts-ignore
     dispatch(burgerConstructorChangeIngredient(dragIndex, hoverIndex));
   };
 
@@ -75,6 +79,7 @@ const ConstructorElements = () => {
       <div className={`custom-scroll ${styles.constructorElements__items}`}>
         {burgerConstructor.ingredients.length > 0 ? (
           burgerConstructor.ingredients.map(
+            //@ts-ignore
             (item: IIngredientAdd, index: number) => {
               return (
                 <ConstructorItem

@@ -174,3 +174,7 @@ export const authLogout = () => {
       console.error(error);
     });
 };
+
+export const getOrderRequest = async (url: string, id: string) => {
+  return await fetch(`${url}/${id}`).then(checkResponse);
+};

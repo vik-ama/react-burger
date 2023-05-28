@@ -70,6 +70,7 @@ const socketReducer = (state = initialState, action: TWsConnectActions) => {
         totalToday: action.payload.totalToday,
       };
     }
+
     default: {
       return state;
     }

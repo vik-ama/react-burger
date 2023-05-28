@@ -11,16 +11,11 @@ import { v4 as uuidv4 } from "uuid";
 
 import { useAppDispatch, useAppSelector } from "../../hook/hooks";
 
-import {
-  WS_CONNECTION_END,
-  WS_CONNECTION_START,
-} from "../../services/actions/socket-actions";
-
 import { CREATED, DONE, PENDING } from "../../pages/feed/feed";
 
 import { IIngredient } from "../../utils/types";
 
-import { wsUrl } from "../../utils/api";
+import { getOrder } from "../../services/actions/order-details-actions";
 
 import styles from "./order-page.module.sass";
 
@@ -36,7 +31,6 @@ interface IOrderState {
 
 const OrderPage = () => {
   const dispatch = useAppDispatch();
-  const location = useLocation();
 
   const { id } = useParams();
   const [order, setOrder] = useState<IOrderState>({
@@ -52,18 +46,9 @@ const OrderPage = () => {
     (state) => state.burgerIngredients
   );
 
-  const ordersAll = useAppSelector((state) => state.socket);
-  const ordersMy = useAppSelector((state) => state.socketOrders);
-  const ordersList =
-    location.pathname.indexOf("/feed/") === 0
-      ? ordersAll.orders
-      : ordersMy.orders;
-
-  const currentOrder = useMemo(() => {
-    if (ordersList) {
-      return ordersList.find((order) => order._id === id);
-    }
-  }, [ordersList, id]);
+  const currentOrder = useAppSelector(
+    (state) => state.orderDetails.orderDetails
+  );
 
   useEffect(() => {
     if (currentOrder) {
@@ -133,15 +118,11 @@ const OrderPage = () => {
     return totalSumm;
   }, [ingredientsUnique, order]);
 
-  // useEffect(() => {
-  //   dispatch({
-  //     type: WS_CONNECTION_START,
-  //     payload: `${wsUrl}/orders/all`,
-  //   });
-  //   return () => {
-  //     dispatch({ type: WS_CONNECTION_END, payload: "disconnect" });
-  //   };
-  // }, [dispatch]);
+  useEffect(() => {
+    if (id) {
+      dispatch(getOrder(id));
+    }
+  }, [id]);
 
   return (
     <div className={styles.orderPage}>
@@ -149,12 +130,12 @@ const OrderPage = () => {
         <div
           className={`text text_type_digits-default ${styles.orderPage__number}`}
         >
-          #{order.number}
+          #{currentOrder?.number}
         </div>
         <div
           className={`text text_type_main-medium mt-10 ${styles.orderPage__title}`}
         >
-          {order.name}
+          {currentOrder?.name}
         </div>
         <div
           className={`text text_type_main-default mt-3 ${styles.orderPage__status_active}`}

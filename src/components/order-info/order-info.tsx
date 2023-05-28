@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 import {
   CurrencyIcon,
@@ -26,17 +25,10 @@ const OrderInfo = (props: IOrderInfoProps) => {
   const navigate = useNavigate();
   const { ingredients } = useAppSelector((state) => state.burgerIngredients);
 
-  const onClick = () => {
-    if (location.pathname === "/feed") {
-      navigate(`/feed/${order._id}`, {
-        state: { background: location },
-      });
-    } else if (location.pathname === "/profile/orders") {
-      navigate(`/profile/orders/${order._id}`, {
-        state: { background: location },
-      });
-    }
-  };
+  const to =
+    location.pathname === "/feed"
+      ? `/feed/${order.number}`
+      : `/profile/orders/${order.number}`;
 
   const orderStatus = () => {
     if (order.status === CREATED) {
@@ -80,10 +72,9 @@ const OrderInfo = (props: IOrderInfoProps) => {
 
   return (
     <Link
-      to={`${location.pathname}/${order._id}`}
+      to={to}
       state={{ backgroundLocation: location }}
       className={`p-6 ${styles.orderInfo}`}
-      onClick={onClick}
     >
       <div className={`${styles.orderInfo__top}`}>
         <div

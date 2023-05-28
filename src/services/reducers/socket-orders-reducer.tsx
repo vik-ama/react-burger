@@ -72,6 +72,7 @@ const socketOrdersReducer = (
         totalToday: action.payload.totalToday,
       };
     }
+
     default: {
       return state;
     }

@@ -1,5 +1,7 @@
 import React, { useMemo } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import Modal from "../modal/modal";
 
 import { IIngredient } from "../../utils/types";
@@ -21,6 +23,10 @@ const BurgerConstructor = (props: IBurgerConstructorProps) => {
 
   const burgerConstructor = useAppSelector((state) => state.burgerConstructor);
   const orderDetails = useAppSelector((state) => state.orderDetails);
+  const navigate = useNavigate();
+  const handleCloseModal = () => {
+    navigate(-1);
+  };
 
   const orderPrice = useMemo<number>(() => {
     let price = 0;
@@ -55,7 +61,7 @@ const BurgerConstructor = (props: IBurgerConstructorProps) => {
   return (
     <section className={`mt-25 ${styles.burgerConstructor}`}>
       {orderDetails.order !== null && orderDetails.order.success && (
-        <Modal>
+        <Modal onClose={handleCloseModal}>
           <ConstructorDetails
             orderNumber={orderDetails.order.order.number}
             orderName={orderDetails.order.name}

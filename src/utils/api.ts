@@ -104,11 +104,7 @@ export const authRegister = (name: string, email: string, password: string) => {
     redirect: "follow",
     referrerPolicy: "no-referrer",
     body: JSON.stringify({ name: name, email: email, password: password }),
-  })
-    .then(checkResponse)
-    .catch((error) => {
-      console.error(error);
-    });
+  }).then(checkResponse);
 };
 
 export const authLogin = (values: { email: string; password: string }) => {
@@ -123,11 +119,7 @@ export const authLogin = (values: { email: string; password: string }) => {
     redirect: "follow",
     referrerPolicy: "no-referrer",
     body: JSON.stringify(values),
-  })
-    .then(checkResponse)
-    .catch((error) => {
-      console.error(error);
-    });
+  }).then(checkResponse);
 };
 
 export const passwordReset = (values: { email: string }) => {

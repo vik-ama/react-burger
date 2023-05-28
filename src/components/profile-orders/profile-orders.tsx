@@ -16,6 +16,8 @@ import {
 
 import { wsUrl } from "../../utils/api";
 
+import Preloader from "../preloader/preloader";
+
 import styles from "./profile-orders.module.sass";
 
 const ProfileOrders = () => {
@@ -41,11 +43,15 @@ const ProfileOrders = () => {
 
   return (
     <div className={`custom-scroll ${styles.profileOrders}`}>
-      {orders.map((order) => {
-        return (
-          <OrderInfo order={order} key={order._id} path={"/profile/orders"} />
-        );
-      })}
+      {orders.length > 0 ? (
+        orders.map((order) => {
+          return (
+            <OrderInfo order={order} key={order._id} path={"/profile/orders"} />
+          );
+        })
+      ) : (
+        <Preloader />
+      )}
     </div>
   );
 };

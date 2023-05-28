@@ -17,29 +17,27 @@ const rootModal = document.querySelector("#root-modal") as HTMLDivElement;
 interface IModalProps {
   title?: string;
   children?: ReactNode;
+  onClose: () => void;
 }
 
 const Modal = (props: IModalProps) => {
-  const { title, children } = props;
+  const { title, children, onClose } = props;
 
   //const orderDetails = useAppSelector((state) => state.orderDetails);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const handleCloseModal = () => {
-    // if (orderDetails.order !== null) {
-    //   dispatch(burgerConstructorClear());
-    // }
-    //navigate("/", { replace: true });
-    navigate(`${location.state.backgroundLocation.pathname}`, {
-      replace: true,
-    });
+
+  const handleOverlayClick = (e: React.SyntheticEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
   };
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        navigate("/", { replace: true });
+        onClose();
       }
     };
     document.addEventListener("keydown", handleEscape);
@@ -54,7 +52,7 @@ const Modal = (props: IModalProps) => {
       <div className={styles.modal}>
         <div className={styles.modal__container}>
           <div className={styles.modal__block}>
-            <button className={styles.modal__close} onClick={handleCloseModal}>
+            <button className={styles.modal__close} onClick={onClose}>
               <CloseIcon type="primary" />
             </button>
             {title && (
@@ -64,7 +62,7 @@ const Modal = (props: IModalProps) => {
           </div>
         </div>
       </div>
-      <ModalOverlay />
+      <ModalOverlay handleCloseModal={handleOverlayClick} />
     </>,
     rootModal
   );

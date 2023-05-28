@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import AppHeader from "../app-header/app-header";
 import Preloader from "../preloader/preloader";
@@ -34,6 +34,7 @@ interface IburgerIngredients {
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getBurgerIngredients());
     dispatch(checkUserAuth());
@@ -43,6 +44,10 @@ function App(): JSX.Element {
   );
   const location = useLocation();
   const state = location.state?.backgroundLocation;
+
+  const handleCloseModal = () => {
+    navigate(-1);
+  };
 
   return (
     <>
@@ -104,7 +109,7 @@ function App(): JSX.Element {
               <Route
                 path="/ingredients/:id"
                 element={
-                  <Modal title="Детали ингредиента">
+                  <Modal title="Детали ингредиента" onClose={handleCloseModal}>
                     <IngredientsDetails
                       ingredients={ingredients}
                       isLoading={isLoading}
@@ -112,26 +117,18 @@ function App(): JSX.Element {
                   </Modal>
                 }
               />
-            </Routes>
-          )}
-          {state && (
-            <Routes>
               <Route
                 path="/feed/:id"
                 element={
-                  <Modal title="Детали заказа">
+                  <Modal title="Детали заказа" onClose={handleCloseModal}>
                     <OrderPage />
                   </Modal>
                 }
               />
-            </Routes>
-          )}
-          {state && (
-            <Routes>
               <Route
                 path="/profile/orders/:id"
                 element={
-                  <Modal title="Детали заказа">
+                  <Modal title="Детали заказа" onClose={handleCloseModal}>
                     <OrderPage />
                   </Modal>
                 }

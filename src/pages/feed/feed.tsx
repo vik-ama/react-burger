@@ -13,6 +13,8 @@ import {
 
 import { wsUrl } from "../../utils/api";
 
+import Preloader from "../../components/preloader/preloader";
+
 import styles from "./feed.module.sass";
 
 export const DONE = "done";
@@ -79,13 +81,13 @@ const Feed = () => {
       </div>
       <div className={styles.feed__block}>
         <div className={`custom-scroll ${styles.feed__list}`}>
-          {orders.length > 0
-            ? orders.map((order) => {
-                return (
-                  <OrderInfo order={order} key={uuidv4()} path={"/feed"} />
-                );
-              })
-            : "Загрузка..."}
+          {orders.length > 0 ? (
+            orders.map((order) => {
+              return <OrderInfo order={order} key={order._id} path={"/feed"} />;
+            })
+          ) : (
+            <Preloader />
+          )}
         </div>
         <div className={styles.feed__summary}>
           <div className={styles.feed__summary_status}>
@@ -97,7 +99,7 @@ const Feed = () => {
                     return (
                       <div
                         className={`text text_type_digits-default mb-2 ${styles.feed__summary_ready_success}`}
-                        key={uuidv4()}
+                        key={item}
                       >
                         {item}
                       </div>
@@ -109,7 +111,7 @@ const Feed = () => {
                     return (
                       <div
                         className={`text text_type_digits-default mb-2 ${styles.feed__summary_ready_success}`}
-                        key={uuidv4()}
+                        key={item}
                       >
                         {item}
                       </div>
@@ -126,7 +128,7 @@ const Feed = () => {
                     return (
                       <div
                         className="text text_type_digits-default mb-2"
-                        key={uuidv4()}
+                        key={item}
                       >
                         {item}
                       </div>
@@ -138,7 +140,7 @@ const Feed = () => {
                     return (
                       <div
                         className="text text_type_digits-default mb-2"
-                        key={uuidv4()}
+                        key={item}
                       >
                         {item}
                       </div>

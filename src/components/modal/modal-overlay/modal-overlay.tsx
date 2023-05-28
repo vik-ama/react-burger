@@ -9,7 +9,12 @@ import { useAppDispatch, useAppSelector } from "../../../hook/hooks";
 
 import styles from "./modal-overlay.module.sass";
 
-const ModalOverlay = () => {
+interface IModalOverlay {
+  handleCloseModal: (e: React.SyntheticEvent) => void;
+}
+
+const ModalOverlay = (props: IModalOverlay) => {
+  const { handleCloseModal } = props;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,19 +23,8 @@ const ModalOverlay = () => {
   );
   //const orderDetails = useAppSelector((state) => state.orderDetails);
 
-  const handleClickOverlay = (e: SyntheticEvent) => {
-    if (e.target === e.currentTarget) {
-      navigate(`${location.state.backgroundLocation.pathname}`, {
-        replace: true,
-      });
-    }
-  };
-
   return (
-    <div
-      className={`${styles.modalOverlay}`}
-      onClick={handleClickOverlay}
-    ></div>
+    <div className={`${styles.modalOverlay}`} onClick={handleCloseModal}></div>
   );
 };
 

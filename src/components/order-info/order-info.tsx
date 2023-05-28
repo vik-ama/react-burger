@@ -111,7 +111,10 @@ const OrderInfo = (props: IOrderInfoProps) => {
           {ingredientsCount > 0 &&
             ingredientsList.map((ingredient) => {
               return (
-                <div className={styles.orderInfo__bottom_item} key={uuidv4()}>
+                <div
+                  className={styles.orderInfo__bottom_item}
+                  key={ingredient._id}
+                >
                   <span>
                     <img src={ingredient.image} alt="" />
                   </span>
@@ -121,7 +124,10 @@ const OrderInfo = (props: IOrderInfoProps) => {
           {ingredientsCount === 0 &&
             ingredientsList.map((ingredient) => {
               return (
-                <div className={styles.orderInfo__bottom_item} key={uuidv4()}>
+                <div
+                  className={styles.orderInfo__bottom_item}
+                  key={ingredient._id}
+                >
                   <span>
                     <img src={ingredient.image} alt="" />
                   </span>

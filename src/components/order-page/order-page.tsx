@@ -133,15 +133,15 @@ const OrderPage = () => {
     return totalSumm;
   }, [ingredientsUnique, order]);
 
-  useEffect(() => {
-    dispatch({
-      type: WS_CONNECTION_START,
-      payload: `${wsUrl}/orders/all`,
-    });
-    return () => {
-      dispatch({ type: WS_CONNECTION_END, payload: "disconnect" });
-    };
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch({
+  //     type: WS_CONNECTION_START,
+  //     payload: `${wsUrl}/orders/all`,
+  //   });
+  //   return () => {
+  //     dispatch({ type: WS_CONNECTION_END, payload: "disconnect" });
+  //   };
+  // }, [dispatch]);
 
   return (
     <div className={styles.orderPage}>

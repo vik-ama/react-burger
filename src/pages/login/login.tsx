@@ -4,7 +4,7 @@ import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { sendLoginForm } from "../../services/actions/auth-actions";
 import useForm from "../../hook/useForm";
@@ -16,7 +16,6 @@ import styles from "./login.module.sass";
 const Login = () => {
   const { values, handleChange } = useForm({ email: "", password: "" });
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -26,7 +25,7 @@ const Login = () => {
       values.password !== "" &&
       values.password.length > 0
     ) {
-      dispatch(sendLoginForm(values, { onSuccess: () => navigate("/") }));
+      dispatch(sendLoginForm(values));
     }
   };
 

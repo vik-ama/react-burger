@@ -6,6 +6,7 @@ import {
   setUser,
 } from "../../utils/api";
 import { AppDispatch } from "../../index";
+import { IUser } from "../../utils/types";
 
 export const AUTH_REGISTER_REQUEST = "AUTH_REGISTER_REQUEST";
 export const AUTH_REGISTER_SUCCESS = "AUTH_REGISTER_SUCCESS";
@@ -28,6 +29,63 @@ export const AUTH_LOGOUT_FAILED = "AUTH_LOGOUT_FAILED";
 export const CHANGE_USER_REQUEST = "CHANGE_USER_REQUEST";
 export const CHANGE_USER_SUCCESS = "CHANGE_USER_SUCCESS";
 export const CHANGE_USER_FAILED = "CHANGE_USER_FAILED";
+
+export type TAuthActions =
+  | {
+      type: typeof AUTH_REGISTER_REQUEST;
+    }
+  | {
+      type: typeof AUTH_REGISTER_SUCCESS;
+      payload: IUser | null;
+    }
+  | {
+      type: typeof AUTH_REGISTER_FAILED;
+    }
+  | {
+      type: typeof AUTH_LOGIN_REQUEST;
+    }
+  | {
+      type: typeof AUTH_LOGIN_SUCCESS;
+      payload: IUser | null;
+    }
+  | {
+      type: typeof AUTH_LOGIN_FAILED;
+    }
+  | {
+      type: typeof GET_USER_REQUEST;
+    }
+  | {
+      type: typeof GET_USER_SUCCESS;
+      payload: IUser | null;
+    }
+  | {
+      type: typeof GET_USER_FAILED;
+    }
+  | {
+      type: typeof GET_USER_CLEAR;
+    }
+  | {
+      type: typeof GET_USER_AUTH_CHECKED;
+    }
+  | {
+      type: typeof AUTH_LOGOUT_REQUEST;
+    }
+  | {
+      type: typeof AUTH_LOGOUT_SUCCESS;
+    }
+  | {
+      type: typeof AUTH_LOGOUT_FAILED;
+    }
+  | {
+      type: typeof CHANGE_USER_REQUEST;
+    }
+  | {
+      type: typeof CHANGE_USER_SUCCESS;
+      payload: IUser | null;
+    }
+  | {
+      type: typeof CHANGE_USER_FAILED;
+    };
 
 export const sendRegisterForm = (
   name: string,
@@ -57,7 +115,7 @@ export const sendRegisterForm = (
   };
 };
 
-export const sendLoginForm = (values: any, onSuccess: any) => {
+export const sendLoginForm = (values: { email: string; password: string }) => {
   return (dispatch: AppDispatch) => {
     dispatch({
       type: AUTH_LOGIN_REQUEST,
@@ -71,7 +129,6 @@ export const sendLoginForm = (values: any, onSuccess: any) => {
           });
           localStorage.setItem("accessToken", response.accessToken);
           localStorage.setItem("refreshToken", response.refreshToken);
-          onSuccess();
         }
       })
       .catch(() => {
@@ -83,16 +140,17 @@ export const sendLoginForm = (values: any, onSuccess: any) => {
 };
 
 export const getUserAction = () => {
-  return async (dispatch: AppDispatch) => {
+  return (dispatch: AppDispatch) => {
     dispatch({
       type: GET_USER_REQUEST,
     });
-    return await getUser()
+    return getUser()
       .then((response) => {
         dispatch({
           type: GET_USER_SUCCESS,
           payload: response.user,
         });
+        return response;
       })
       .catch(() => {
         dispatch({
@@ -148,7 +206,11 @@ export const logoutUser = () => {
   };
 };
 
-export const changeUser = (form: any) => {
+export const changeUser = (form: {
+  email: string;
+  name: string;
+  password: string;
+}) => {
   return async (dispatch: AppDispatch) => {
     dispatch({
       type: CHANGE_USER_REQUEST,

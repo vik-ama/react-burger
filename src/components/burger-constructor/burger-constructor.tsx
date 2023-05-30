@@ -1,10 +1,14 @@
 import React, { useMemo } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import Modal from "../modal/modal";
 
 import { IIngredient } from "../../utils/types";
 
-import { useAppSelector } from "../../hook/hooks";
+import { useAppDispatch, useAppSelector } from "../../hook/hooks";
+
+import { burgerConstructorClear } from "../../services/actions/order-details-actions";
 
 import ConstructorElements from "./constructor-elements/constructor-elements";
 import ConstructorTotal from "./constructor-total/constructor-total";
@@ -21,19 +25,21 @@ const BurgerConstructor = (props: IBurgerConstructorProps) => {
 
   const burgerConstructor = useAppSelector((state) => state.burgerConstructor);
   const orderDetails = useAppSelector((state) => state.orderDetails);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const handleCloseModal = () => {
+    dispatch(burgerConstructorClear());
+    navigate(-1);
+  };
 
   const orderPrice = useMemo<number>(() => {
     let price = 0;
-    //@ts-ignore
     if (burgerConstructor.bun) {
-      //@ts-ignore
       price += burgerConstructor.bun.price * 2;
     }
-    //@ts-ignore
     if (burgerConstructor.ingredients.length !== 0) {
-      //@ts-ignore
       price += burgerConstructor.ingredients.reduce(
-        (sum: number, item: IIngredient) => sum + item.price,
+        (sum, item) => sum + item.price,
         0
       );
     }
@@ -42,21 +48,15 @@ const BurgerConstructor = (props: IBurgerConstructorProps) => {
 
   const orderIngredients = useMemo<string[]>(() => {
     const orderIngredientsArray: string[] = [];
-    //@ts-ignore
     if (burgerConstructor.bun) {
-      //@ts-ignore
       orderIngredientsArray.push(burgerConstructor.bun._id);
     }
-    //@ts-ignore
     if (burgerConstructor.ingredients.length !== 0) {
-      //@ts-ignore
       burgerConstructor.ingredients.forEach((item: IIngredient) => {
         orderIngredientsArray.push(item._id);
       });
     }
-    //@ts-ignore
     if (burgerConstructor.bun) {
-      //@ts-ignore
       orderIngredientsArray.push(burgerConstructor.bun._id);
     }
     return orderIngredientsArray;
@@ -65,7 +65,7 @@ const BurgerConstructor = (props: IBurgerConstructorProps) => {
   return (
     <section className={`mt-25 ${styles.burgerConstructor}`}>
       {orderDetails.order !== null && orderDetails.order.success && (
-        <Modal>
+        <Modal onClose={handleCloseModal}>
           <ConstructorDetails
             orderNumber={orderDetails.order.order.number}
             orderName={orderDetails.order.name}

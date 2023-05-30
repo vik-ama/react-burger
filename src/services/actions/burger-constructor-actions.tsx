@@ -18,6 +18,21 @@ export const BURGER_CONSTRUCTOR_CHANGE_INGREDIENT =
 
 export const BURGER_CHECKOUT_REQUEST = "BURGER_CHECKOUT_REQUEST";
 
+export type TBurgerConstructorActions =
+  | { type: typeof BURGER_CONSTRUCTOR_REQUEST }
+  | { type: typeof BURGER_CONSTRUCTOR_ADD_BUN; payload: IIngredient | null }
+  | {
+      type: typeof BURGER_CONSTRUCTOR_ADD_INGREDIENT;
+      payload: IIngredient;
+      uuid: string;
+    }
+  | { type: typeof BURGER_CONSTRUCTOR_REMOVE_INGREDIENT; payload: number }
+  | {
+      type: typeof BURGER_CONSTRUCTOR_CHANGE_INGREDIENT;
+      payload: { dragIndex: number; hoverIndex: number };
+    }
+  | { type: typeof BURGER_CONSTRUCTOR_FAILED };
+
 export const burgerConstructorAddBun = (ingredient: IIngredient) => {
   return (dispatch: AppDispatch) => {
     dispatch({
@@ -34,7 +49,6 @@ export const burgerConstructorAddIngredient = (
   ingredient: IIngredient,
   uuid: string
 ) => {
-  //console.log(ingredient, uuid);
   return (dispatch: AppDispatch) => {
     dispatch({
       type: BURGER_CONSTRUCTOR_REQUEST,

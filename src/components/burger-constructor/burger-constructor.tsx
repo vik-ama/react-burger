@@ -6,7 +6,9 @@ import Modal from "../modal/modal";
 
 import { IIngredient } from "../../utils/types";
 
-import { useAppSelector } from "../../hook/hooks";
+import { useAppDispatch, useAppSelector } from "../../hook/hooks";
+
+import { burgerConstructorClear } from "../../services/actions/order-details-actions";
 
 import ConstructorElements from "./constructor-elements/constructor-elements";
 import ConstructorTotal from "./constructor-total/constructor-total";
@@ -24,7 +26,9 @@ const BurgerConstructor = (props: IBurgerConstructorProps) => {
   const burgerConstructor = useAppSelector((state) => state.burgerConstructor);
   const orderDetails = useAppSelector((state) => state.orderDetails);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const handleCloseModal = () => {
+    dispatch(burgerConstructorClear());
     navigate(-1);
   };
 

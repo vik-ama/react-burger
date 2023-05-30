@@ -64,9 +64,6 @@ export const setUser = (form: {
 }) => {
   return fetchWithRefresh(AUTH_USER, {
     method: "PATCH",
-    // headers: new Headers({
-    //     ""
-    // })
     headers: {
       "Content-Type": "application/json",
       authorization: localStorage.getItem("accessToken") || "",
@@ -85,11 +82,7 @@ export const getUser = () => {
 };
 
 export const getIngredients = () => {
-  return fetch(INGREDIENTS)
-    .then(checkResponse)
-    .catch((error) => {
-      console.error(error);
-    });
+  return fetch(INGREDIENTS).then(checkResponse);
 };
 
 export const authRegister = (name: string, email: string, password: string) => {
@@ -149,11 +142,7 @@ export const passwordChange = (values: { password: string; token: string }) => {
     redirect: "follow",
     referrerPolicy: "no-referrer",
     body: JSON.stringify(values),
-  })
-    .then(checkResponse)
-    .catch((error) => {
-      console.error(error);
-    });
+  }).then(checkResponse);
 };
 
 export const authLogout = () => {
@@ -168,11 +157,7 @@ export const authLogout = () => {
     redirect: "follow",
     referrerPolicy: "no-referrer",
     body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
-  })
-    .then(checkResponse)
-    .catch((error) => {
-      console.error(error);
-    });
+  }).then(checkResponse);
 };
 
 export const getOrderRequest = async (url: string, id: string) => {

@@ -148,31 +148,33 @@ const OrderPage = () => {
           Состав:
         </div>
         <div className={`mt-6 custom-scroll ${styles.orderPage__list}`}>
-          {ingredientsUnique.map((orderIngredient: IIngredient) => {
-            return (
-              <div className={`${styles.orderPage__item}`} key={uuidv4()}>
-                <div className={`${styles.orderPage__item_image}`}>
-                  <span>
-                    <img src={orderIngredient?.image} alt="" />
-                  </span>
+          {ingredientsUnique.map(
+            (orderIngredient: IIngredient, index: number) => {
+              return (
+                <div className={`${styles.orderPage__item}`} key={index}>
+                  <div className={`${styles.orderPage__item_image}`}>
+                    <span>
+                      <img src={orderIngredient?.image} alt="" />
+                    </span>
+                  </div>
+                  <div className={`${styles.orderPage__item_title}`}>
+                    {orderIngredient?.name}
+                  </div>
+                  <div className={`${styles.orderPage__item_count}`}>
+                    <span className="text text_type_digits-default">
+                      {countIngredients
+                        ? `${countIngredients[orderIngredient._id]}`
+                        : ""}
+                      x {orderIngredient?.price}
+                    </span>
+                    <span>
+                      <CurrencyIcon type="primary" />
+                    </span>
+                  </div>
                 </div>
-                <div className={`${styles.orderPage__item_title}`}>
-                  {orderIngredient?.name}
-                </div>
-                <div className={`${styles.orderPage__item_count}`}>
-                  <span className="text text_type_digits-default">
-                    {countIngredients
-                      ? `${countIngredients[orderIngredient._id]}`
-                      : ""}
-                    x {orderIngredient?.price}
-                  </span>
-                  <span>
-                    <CurrencyIcon type="primary" />
-                  </span>
-                </div>
-              </div>
-            );
-          })}
+              );
+            }
+          )}
         </div>
         <div className={`mt-10 ${styles.orderPage__summ}`}>
           <div

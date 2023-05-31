@@ -49,6 +49,7 @@ const ConstructorTotal = (props: IConstructorTotalProps) => {
           type="primary"
           size="large"
           onClick={() => handleOpenModal()}
+          data-test="order-button"
         >
           Оформить заказ
         </Button>

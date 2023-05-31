@@ -24,7 +24,11 @@ const ModalOverlay = (props: IModalOverlay) => {
   //const orderDetails = useAppSelector((state) => state.orderDetails);
 
   return (
-    <div className={`${styles.modalOverlay}`} onClick={handleCloseModal}></div>
+    <div
+      className={`${styles.modalOverlay}`}
+      onClick={handleCloseModal}
+      data-test="close-overlay"
+    ></div>
   );
 };
 

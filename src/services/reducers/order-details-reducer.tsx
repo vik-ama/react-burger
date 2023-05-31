@@ -55,7 +55,7 @@ export interface IOrderDetailsReducer {
   orderDetails: IOrderDetailsReducerOrderOrder | null;
 }
 
-const initialState: IOrderDetailsReducer = {
+export const initialState: IOrderDetailsReducer = {
   isLoading: false,
   hasError: false,
   order: null,

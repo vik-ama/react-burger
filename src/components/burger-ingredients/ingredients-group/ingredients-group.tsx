@@ -22,7 +22,10 @@ const IngredientsGroup = (props: IIngredientsGroupProps) => {
       >
         {title}
       </div>
-      <div className={`ml-4 mr-4 mt-6 ${styles.ingredientsGroup__items}`}>
+      <div
+        className={`ml-4 mr-4 mt-6 ${styles.ingredientsGroup__items}`}
+        data-test={type}
+      >
         {ingredients.map((item: IIngredient) => {
           return <IngredientsItem key={item._id} ingredient={item} />;
         })}

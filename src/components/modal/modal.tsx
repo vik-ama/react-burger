@@ -49,10 +49,14 @@ const Modal = (props: IModalProps) => {
 
   return createPortal(
     <>
-      <div className={styles.modal}>
+      <div className={styles.modal} data-test="modal">
         <div className={styles.modal__container}>
           <div className={styles.modal__block}>
-            <button className={styles.modal__close} onClick={onClose}>
+            <button
+              className={styles.modal__close}
+              onClick={onClose}
+              data-test="button-close"
+            >
               <CloseIcon type="primary" />
             </button>
             {title && (

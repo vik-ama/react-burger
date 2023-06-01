@@ -7,7 +7,8 @@ import { applyMiddleware, compose, createStore } from "redux";
 // eslint-disable-next-line import/named
 import thunk, { ThunkAction } from "redux-thunk";
 
-import { BrowserRouter as Router } from "react-router-dom";
+//import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 
 import { rootReducer } from "./services/reducers";
 import App from "./components/app/app";

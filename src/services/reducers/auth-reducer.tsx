@@ -21,14 +21,14 @@ import {
 import { RootState } from "../../index";
 import { IUser } from "../../utils/types";
 
-interface IInitialState {
+interface IInitialStateAuthReducer {
   user: IUser | null;
   isLoading: boolean;
   hasError: boolean;
   isAuthChecked: boolean;
 }
 
-const initialState: IInitialState = {
+export const initialState: IInitialStateAuthReducer = {
   user: null,
   isLoading: false,
   hasError: false,
@@ -38,7 +38,7 @@ const initialState: IInitialState = {
 const authReducer = (
   state = initialState,
   action: TAuthActions
-): IInitialState => {
+): IInitialStateAuthReducer => {
   switch (action.type) {
     case AUTH_REGISTER_REQUEST: {
       return {
@@ -169,27 +169,6 @@ const authReducer = (
         hasError: true,
       };
     }
-
-    // case PASSWORD_RESET_REQUEST: {
-    //   return {
-    //     ...state,
-    //     isLoading: true,
-    //   };
-    // }
-    // case PASSWORD_RESET_SUCCESS: {
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //   };
-    // }
-    // case PASSWORD_RESET_FAILED: {
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     hasError: true,
-    //   };
-    // }
-
     default: {
       return state;
     }

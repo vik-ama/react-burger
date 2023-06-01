@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo } from "react";
 
-import { v4 as uuidv4 } from "uuid";
-
 import OrderInfo from "../../components/order-info/order-info";
 
 import { useAppDispatch, useAppSelector } from "../../hook/hooks";

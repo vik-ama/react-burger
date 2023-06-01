@@ -24,7 +24,6 @@ const Protected = ({ onlyUnAuth = false, component }: IProtectedProps) => {
     // пользователь авторизован, но роут предназначен для неавторизованных пользователей
     // делам редирект на главную страницу или на тот адрес, что записан в location.store
     const { from } = location.state || { from: { pathname: "/" } };
-    console.log("protected navigate", from);
     return <Navigate to={from} />;
   }
 

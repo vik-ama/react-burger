@@ -13,7 +13,10 @@ const ConstructorDetails = (props: IConstructorDetailsProps) => {
   const { orderNumber, orderName } = props;
 
   return (
-    <div className={`mt-20 mb-20 ${styles.constructorDetails}`}>
+    <div
+      className={`mt-20 mb-20 ${styles.constructorDetails}`}
+      data-test="order-details"
+    >
       <div
         className={`text text_type_digits-large ${styles.constructorDetails__id}`}
       >

@@ -12,7 +12,7 @@ interface IInitialState {
   ingredients: IIngredient[] | [];
 }
 
-const initialState: IInitialState = {
+export const initialState: IInitialState = {
   isLoading: false,
   hasError: false,
   ingredients: [],

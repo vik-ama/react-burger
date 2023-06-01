@@ -63,7 +63,10 @@ const BurgerConstructor = (props: IBurgerConstructorProps) => {
   }, [burgerConstructor]);
 
   return (
-    <section className={`mt-25 ${styles.burgerConstructor}`}>
+    <section
+      className={`mt-25 ${styles.burgerConstructor}`}
+      data-test="burger-constructor"
+    >
       {orderDetails.order !== null && orderDetails.order.success && (
         <Modal onClose={handleCloseModal}>
           <ConstructorDetails

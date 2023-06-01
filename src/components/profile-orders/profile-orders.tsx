@@ -1,17 +1,13 @@
 import React, { useEffect } from "react";
 
-import { v4 as uuidv4 } from "uuid";
-
 import { useLocation } from "react-router-dom";
 
 import OrderInfo from "../order-info/order-info";
 
 import { useAppDispatch, useAppSelector } from "../../hook/hooks";
 import {
-  WS_CONNECTION_END,
   WS_CONNECTION_ORDERS_END,
   WS_CONNECTION_ORDERS_START,
-  WS_CONNECTION_START,
 } from "../../services/actions/socket-actions";
 
 import { wsUrl } from "../../utils/api";

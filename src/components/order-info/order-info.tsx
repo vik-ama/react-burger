@@ -22,7 +22,6 @@ interface IOrderInfoProps {
 const OrderInfo = (props: IOrderInfoProps) => {
   const { order, path } = props;
   const location = useLocation();
-  const navigate = useNavigate();
   const { ingredients } = useAppSelector((state) => state.burgerIngredients);
 
   const to =

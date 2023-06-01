@@ -3,6 +3,7 @@ import {
   BURGER_INGREDIENT_DETAILS_FAILED,
   BURGER_INGREDIENT_DETAILS_REMOVE,
   BURGER_INGREDIENT_DETAILS_REQUEST,
+  TBurgerIngredientDetailsActions,
 } from "../actions/burger-ingredient-details-actions";
 
 import burgerIngredientDetailsReducer, {
@@ -25,8 +26,12 @@ const testIngredient = {
 };
 describe("burgerIngredientDetailsReducer", () => {
   it("should return initialState", () => {
-    //@ts-ignore
-    expect(burgerIngredientDetailsReducer(undefined, {})).toEqual(initialState);
+    expect(
+      burgerIngredientDetailsReducer(
+        undefined,
+        {} as TBurgerIngredientDetailsActions
+      )
+    ).toEqual(initialState);
   });
 
   it("BURGER_INGREDIENT_DETAILS_REQUEST", () => {

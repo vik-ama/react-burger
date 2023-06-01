@@ -8,6 +8,7 @@ import {
   BURGER_CONSTRUCTOR_FAILED,
   BURGER_CONSTRUCTOR_REMOVE_INGREDIENT,
   BURGER_CONSTRUCTOR_REQUEST,
+  TBurgerConstructorActions,
 } from "../actions/burger-constructor-actions";
 
 import burgerConstructorReducer, {
@@ -45,8 +46,9 @@ const testIngredient = {
 
 describe("burgerConstructorReducer", () => {
   it("should return initialState", () => {
-    //@ts-ignore
-    expect(burgerConstructorReducer(undefined, {})).toEqual(initialState);
+    expect(
+      burgerConstructorReducer(undefined, {} as TBurgerConstructorActions)
+    ).toEqual(initialState);
   });
 
   it("AUTH_REGISTER_REQUEST", () => {

@@ -56,13 +56,9 @@ describe("order modal works correctly", () => {
     cy.intercept("GET", "https://norma.nomoreparties.space/api/auth/user", {
       fixture: "user",
     }).as("authUser");
-    cy.intercept(
-      "POST",
-      "https://norma.nomoreparties.space/api/orders?token=undefined",
-      {
-        fixture: "order",
-      }
-    ).as("postOrder");
+    cy.intercept("POST", "https://norma.nomoreparties.space/api/orders", {
+      fixture: "order",
+    }).as("postOrder");
 
     window.localStorage.setItem(
       "refreshToken",

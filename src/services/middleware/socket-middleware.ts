@@ -45,7 +45,7 @@ const socketMiddleware = (
         socket.onmessage = (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
-          const { success, ...restParsedData } = parsedData;
+          const { ...restParsedData } = parsedData;
           if (restParsedData.orders) {
             restParsedData.orders.sort(
               (a: IOrderInfo, b: IOrderInfo) => b.number - a.number

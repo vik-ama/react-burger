@@ -16,6 +16,7 @@ import {
   GET_USER_FAILED,
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
+  TAuthActions,
 } from "../actions/auth-actions";
 
 import authReducer, { initialState } from "./auth-reducer";
@@ -32,8 +33,7 @@ const userPayload = {
 
 describe("authReducer", () => {
   it("should return initialState", () => {
-    //@ts-ignore
-    expect(authReducer(undefined, {})).toEqual(initialState);
+    expect(authReducer(undefined, {} as TAuthActions)).toEqual(initialState);
   });
   it("AUTH_REGISTER_REQUEST", () => {
     const state = authReducer(initialState, { type: AUTH_REGISTER_REQUEST });

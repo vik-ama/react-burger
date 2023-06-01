@@ -1,4 +1,5 @@
 import {
+  TWsConnectActions,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_ORDERS_CLOSED,
   WS_CONNECTION_ORDERS_END,
@@ -36,8 +37,9 @@ const testOrdersMessage = {
 
 describe("socketOrdersReducer", () => {
   it("should return initialState", () => {
-    //@ts-ignore
-    expect(socketOrdersReducer(undefined, {})).toEqual(initialState);
+    expect(socketOrdersReducer(undefined, {} as TWsConnectActions)).toEqual(
+      initialState
+    );
   });
   it("WS_CONNECTION_START", () => {
     socketOrdersReducer(initialState, {

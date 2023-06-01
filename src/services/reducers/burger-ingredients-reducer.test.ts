@@ -2,6 +2,7 @@ import {
   BURGER_INGREDIENTS_FAILED,
   BURGER_INGREDIENTS_REQUEST,
   BURGER_INGREDIENTS_SUCCESS,
+  TBurgerIngredientsActions,
 } from "../actions/burger-ingredients-actions";
 
 import burgerIngredientsReducer, {
@@ -27,8 +28,9 @@ const testIngredients = [
 
 describe("burgerIngredientsReducer", () => {
   it("should return initialState", () => {
-    //@ts-ignore
-    expect(burgerIngredientsReducer(undefined, {})).toEqual(initialState);
+    expect(
+      burgerIngredientsReducer(undefined, {} as TBurgerIngredientsActions)
+    ).toEqual(initialState);
   });
   it("BURGER_INGREDIENTS_REQUEST", () => {
     const state = burgerIngredientsReducer(initialState, {

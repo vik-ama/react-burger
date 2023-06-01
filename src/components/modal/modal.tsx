@@ -5,8 +5,6 @@ import { createPortal } from "react-dom";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { burgerConstructorClear } from "../../services/actions/order-details-actions";
-
 import { useAppDispatch, useAppSelector } from "../../hook/hooks";
 
 import styles from "./modal.module.sass";

@@ -6,6 +6,7 @@ import {
   ORDER_DETAILS_FAILED,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
+  TOrderDetailsReducer,
 } from "../actions/order-details-actions";
 
 import orderDetailsReducer, { initialState } from "./order-details-reducer";
@@ -72,8 +73,9 @@ const testGetOrder = {
 };
 describe("orderDetailsReducer", () => {
   it("should return initialState", () => {
-    //@ts-ignore
-    expect(orderDetailsReducer(undefined, {})).toEqual(initialState);
+    expect(orderDetailsReducer(undefined, {} as TOrderDetailsReducer)).toEqual(
+      initialState
+    );
   });
   it("ORDER_DETAILS_REQUEST", () => {
     const state = orderDetailsReducer(initialState, {
